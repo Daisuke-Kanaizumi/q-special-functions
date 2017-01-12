@@ -44,6 +44,17 @@ https://github.com/o108minmin/pint
 
 DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, and Linux). However, neither an error-free processor nor an error-free program can be guaranteed.
 
+(Functions in this repository)
+Bailey-Daum sum 
+q-Bessel functions (Jackson, Hahn-Exton)
+q-beta function
+q-beta integrals
+q-gamma functions (Jackson, Moak)
+q-Ramanujan function
+quantum dilogarithm Li_2(x;q) (defined by Kirillov)
+Ramanujan psi sum
+Ramanujan theta function
+
 (References)
 
 S.M. Rump: INTLAB - INTerval LABoratory. 
