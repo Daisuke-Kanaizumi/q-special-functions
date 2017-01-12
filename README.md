@@ -52,7 +52,7 @@ q-Bessel functions (Jackson, Hahn-Exton)
 
 q-beta function
 
-q-beta integrals
+q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
 q-gamma functions (Jackson, Moak)
 
