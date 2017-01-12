@@ -12,7 +12,7 @@ I will translate them to English (as soon as possible). Please wait for a while.
 
 If you use my programs in publications, please include the following reference.
 
-Daisuke Kanaizumi Applications of verified numerical computation methods for q-special functions, q-series, hypergeometric functions and error functions
+Daisuke Kanaizumi, Applications of verified numerical computation methods for q-special functions, q-series, hypergeometric functions and error functions,
 Bachelor thesis, Department of Applied Mathematics, Waseda University (Japanese document)
 
 You do NOT have to inform your usage to me, but I am very glad to hear how my programs helped you.
