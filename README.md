@@ -92,3 +92,5 @@ Don Zagier, The Dilogarithm Function
 Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painleve III equation
 
 Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometric equations
+
+Wolfram Mathworld http://mathworld.wolfram.com/
