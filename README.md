@@ -50,21 +50,21 @@ S.M. Rump: INTLAB - INTerval LABoratory.
 In Tibor Csendes, editor, Developments in Reliable Computing, pages 77-104. 
 Kluwer Academic Publishers, Dordrecht, 1999.
 
-George. E. Andrews, Mircea Merca 
-The truncated pentagonal number theorem
+George. E. Andrews, Mircea Merca, 
+The truncated pentagonal number theorem,
 Journal of Combinatorial Theory, Series A
 
-M. A. Olshanetsky, V. B. K. Rogov
+M. A. Olshanetsky, V. B. K. Rogov,
 The Modified q-Bessel Functions and the q-Bessel Macdonald Functions
 
-Mourad E. H. Ismail
-CLASSICAL AND QUANTUM ORTHOGONAL POLYNOMIALS IN ONE VARIABLE
-Encyclopedia of Mathematics and its Applications 98
+Mourad E. H. Ismail,
+CLASSICAL AND QUANTUM ORTHOGONAL POLYNOMIALS IN ONE VARIABLE,
+Encyclopedia of Mathematics and its Applications 98,
 CAMBRIDGE UNIVERSITY PRESS
 
-George E. Andrews, Richard Askey, Ranjan Roy
-SPECIAL FUNCTIONS
-Encyclopedia of Mathematics and its Applications 71
+George E. Andrews, Richard Askey, Ranjan Roy,
+SPECIAL FUNCTIONS,
+Encyclopedia of Mathematics and its Applications 71,
 CAMBRIDGE UNIVERSITY PRESS
 
 Don Zagier, The Dilogarithm Function
