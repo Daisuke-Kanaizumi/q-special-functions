@@ -4,11 +4,7 @@ programs for q-special functions
 
 Thank you for checking my programs.
 
-Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols with guaranteed accuaracy. Japanese Documentations (which include details for the methods that I used) are uploaded to Speakerdeck.
-
-https://speakerdeck.com/daisuke15
-
-I will translate them to English (as soon as possible). Please wait for a while.
+Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols with guaranteed accuaracy. 
 
 If you use my programs in publications, please include the following reference.
 
