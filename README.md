@@ -8,7 +8,7 @@ Programs(.cc, .py, .m files, I will make a header file version as soon as possib
 
 If you use my programs in publications, please include the following reference.
 
-Daisuke Kanaizumi, Applications of verified numerical computation methods for q-special functions, q-series, hypergeometric functions and error functions,
+Daisuke Kanaizumi, Verified numerical computation methods for q-special functions, q-series, hypergeometric functions and error functions,
 Bachelor thesis, Department of Applied Mathematics, Waseda University (Japanese document)
 
 You do NOT have to inform your usage to me, but I am very glad to hear how my programs helped you.
