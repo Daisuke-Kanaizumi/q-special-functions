@@ -52,6 +52,8 @@ q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
 q-gamma functions (Jackson, Moak)
 
+q-Airy function
+
 q-Ramanujan function
 
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
@@ -68,7 +70,7 @@ Kluwer Academic Publishers, Dordrecht, 1999.
 
 George. E. Andrews, Mircea Merca, 
 The truncated pentagonal number theorem,
-Journal of Combinatorial Theory, Series A
+Journal of Combinatorial Theory, Series A,
 
 M. A. Olshanetsky, V. B. K. Rogov,
 The Modified q-Bessel Functions and the q-Bessel Macdonald Functions
@@ -88,5 +90,7 @@ Don Zagier, The Dilogarithm Function
 Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painleve III equation
 
 Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometric equations
+
+Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric series, Advances in Mathematics, 2008
 
 Wolfram Mathworld http://mathworld.wolfram.com/
