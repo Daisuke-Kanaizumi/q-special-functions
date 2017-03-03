@@ -42,7 +42,9 @@ DISCLAIMER: Extensive tests have been performed to ensure reliability of the alg
 
 (Functions in this repository)
 
-Bailey-Daum sum 
+Bailey-Daum sum (special case of Heine hypergeometric function)
+
+Heine hypergeometric function
 
 q-Bessel functions (Jackson, Hahn-Exton)
 
@@ -90,5 +92,7 @@ Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painl
 Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometric equations
 
 Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric series, Advances in Mathematics, 2008
+
+Fredik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
 
 Wolfram Mathworld http://mathworld.wolfram.com/
