@@ -179,12 +179,6 @@ namespace kv{
     return res;
   }
 
-  template <class T> interval<T> qAiry(const interval<T>& z,const interval<T>& q){
-    interval<T>res;
-    res=infinite_qPochhammer(interval<T> (-z*q), interval<T>(q*q));
-    return res;
-  }
-
   template <class T> interval<T> qPochhammer(const interval<T>& z,const interval<T>& q,const int& n){
     interval<T>res,qp;
     int k;
