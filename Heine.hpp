@@ -7,7 +7,7 @@
 // 2\phi1(a,b,c,q,z), this is a q extension of Gaussian hypergeometric function
 
 // reference
-// Fredik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
+// Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
 
 #ifndef HEINE_HPP
 #define HEINE_HPP
@@ -45,4 +45,27 @@ namespace kv {
     } 
  }
 }
+ template <class T> complex<interval<T> >Heine(const complex<interval<T> >& a, const complex<interval<T> >& b, const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
+    int N;
+    N=1000;
+    complex<interval<T> > mid,rad,res,ratio,first;
+    mid=1.;
+    for(int n=1;n<=N-1;n++){
+      mid=mid+qPochhammer(complex<interval<T> >(a),interval<T>(q) ,int (n))*qPochhammer(complex<interval<T> >(b),interval<T>(q),int (n))*pow(z,n)
+	/qPochhammer(complex<interval<T> >(c),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
+    }
+    first=qPochhammer(complex<interval<T> >(a),interval<T>(q),int (N))*qPochhammer(complex<interval<T> >(b),interval<T>(q),int (N))*pow(z,N)
+      /qPochhammer(complex<interval<T> >(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N));
+    ratio=abs(z)*(1+abs(pow(q,N)*(c-a)/(1-pow(q,N))))*(1+abs(pow(q,N)*(q-b)/(1-pow(q,N))));
+    if(abs(ratio)<1){
+      rad=first/(1-ratio);
+      res=mid+rad;
+      return res;
+    }
+    else{
+      std::cout<<"ratio is more than 1"<<std::endl;
+    } 
+ }
+}
+
 #endif
