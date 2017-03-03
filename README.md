@@ -93,6 +93,6 @@ Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometri
 
 Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric series, Advances in Mathematics, 2008
 
-Fredik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
+Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
 
 Wolfram Mathworld http://mathworld.wolfram.com/
