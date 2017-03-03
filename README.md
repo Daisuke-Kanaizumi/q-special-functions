@@ -52,8 +52,6 @@ q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
 q-gamma functions (Jackson, Moak)
 
-q-Airy function
-
 q-Ramanujan function
 
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
