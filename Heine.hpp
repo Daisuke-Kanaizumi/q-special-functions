@@ -34,7 +34,7 @@ namespace kv {
     }
     first=qPochhammer(interval<T>(a),interval<T>(q),int (N))*qPochhammer(interval<T>(b),interval<T>(q),int (N))*pow(z,N)
       /qPochhammer(interval<T>(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N));
-    ratio=abs(z)*(1+abs(pow(q,N)*(c-a)/(1-pow(q,N))))*(1+abs(pow(q,N)*(q-b)/(1-pow(q,N+1))));
+    ratio=abs(z)*(1+abs(pow(q,N)*(c-a)/(1-c*pow(q,N))))*(1+abs(pow(q,N)*(q-b)/(1-pow(q,N+1))));
     if(ratio<1){
       rad=first/(1-ratio);
       res=mid+rad;
@@ -56,7 +56,7 @@ namespace kv {
     }
     first=qPochhammer(complex<interval<T> >(a),interval<T>(q),int (N))*qPochhammer(complex<interval<T> >(b),interval<T>(q),int (N))*pow(z,N)
       /qPochhammer(complex<interval<T> >(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N));
-    ratio=abs(z)*(1+abs(pow(q,N)*(c-a)/(1-pow(q,N))))*(1+abs(pow(q,N)*(q-b)/(1-pow(q,N+1))));
+    ratio=abs(z)*(1+abs(pow(q,N)*(c-a)/(1-c*pow(q,N))))*(1+abs(pow(q,N)*(q-b)/(1-pow(q,N+1))));
     if(abs(ratio)<1){
       rad=first/(1-ratio);
       res=mid+rad;
