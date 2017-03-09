@@ -82,7 +82,7 @@ template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q
     }
     first=pow(z,N)*pow(q,N*(N-1))
       /qPochhammer(interval<T>(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N));
-    ratio=abs(z)*abs(q,2*N)*abs(1/(1-c*pow(q,N)))*abs(1/(1-pow(q,N+1)));
+    ratio=abs(z)*pow(q,2*N)*abs(1/(1-c*pow(q,N)))*abs(1/(1-pow(q,N+1)));
     if(ratio<1){
       rad=first/(1-ratio);
       res=mid+rad;
