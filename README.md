@@ -4,7 +4,7 @@ programs for q-special functions
 
 Thank you for checking my programs.
 
-Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols with guaranteed accuaracy. 
+Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
 
 If you use my programs in publications, please include the following reference.
 
@@ -46,7 +46,9 @@ Bailey-Daum sum (special case of Heine hypergeometric function)
 
 Heine hypergeometric function
 
-q-Bessel functions (Jackson, Hahn-Exton)
+q-Airy functions (HKW, KMNOY, Ramanujan)
+
+q-Bessel functions (Jackson, Hahn-Exton, little, modified)
 
 q-beta function
 
@@ -54,13 +56,13 @@ q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
 q-gamma functions (Jackson, Moak)
 
-q-Ramanujan function
-
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
 
 Ramanujan psi sum
 
 Ramanujan theta function
+
+symmetric q-gamma, symmetric q-beta
 
 (References)
 
@@ -91,8 +93,13 @@ Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painl
 
 Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometric equations
 
+Bouzeffour, New Addition Formula for the Little q-Bessel Functions, arXiv, 2013
+
 Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric series, Advances in Mathematics, 2008
 
 Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
 
+Bouzeffour, New Addition Formula for the Little q-Bessel Functions, arXiv, 2013
+
 Wolfram Mathworld http://mathworld.wolfram.com/
+
