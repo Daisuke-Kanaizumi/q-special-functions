@@ -99,7 +99,7 @@ Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric se
 
 Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
 
-Bouzeffour, New Addition Formula for the Little q-Bessel Functions, arXiv, 2013
+Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
 
 Wolfram Mathworld http://mathworld.wolfram.com/
 
