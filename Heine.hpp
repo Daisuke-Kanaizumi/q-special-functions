@@ -44,7 +44,18 @@ namespace kv {
       std::cout<<"ratio is more than 1"<<std::endl;
     } 
  }
- 
+ template <class T> interval<T> q_log(const interval<T>& (q),const interval<T> &(z)){
+    // verification program for q-logarithm l_q(1-z)
+    // reference
+    // Adrienne W. Kemp, C. David Kemp, The q-cluster distribution
+    // Journal of Statistical Plannning and Inference, 2009
+
+    // 0<q<1, 0<z<1
+
+    interval<T>res;
+    res=-z*Heine(interval<T>(q),interval<T>(q),interval<T>(q*q),interval<T>(q),interval<T>(z));
+    return res;
+  }
  template <class T> complex<interval<T> >Heine(const complex<interval<T> >& a, const complex<interval<T> >& b, const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
     int N;
     N=1000;
