@@ -10,6 +10,7 @@
 // q-sin, q-cos
 // Jackson and Moak q-gamma, q-beta, symmetric q-gamma, symmetric q-beta (Brahim-Sidomou, 2013)
 // quantum dilogarithm (Kirillov, 1994)
+// Ramanujan theta
 
 #ifndef POCHHAMMER_HPP
 #define POCHHAMMER_HPP
@@ -308,6 +309,16 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
    return res;
  }
 
+ template <class T> interval<T>Ramanujan_theta(const interval<T>& a,const interval<T>& b){
+    // verification program for Ramanujan theta function
+    interval<T>res;
+    if (abs(a*b)>=1){
+      throw std::domain_error("absolute value of a*b must be under 1");
+    }
+    res=infinite_qPochhammer(interval<T>(-a),interval<T>(a*b))*infinite_qPochhammer(interval<T>(-b),interval<T>(a*b))*Euler(interval<T>(a*b));
+    return res;
+  }
+	
   template <class T> interval<T> qPochhammer(const interval<T>& z,const interval<T>& q,const int& n){
     interval<T>res,qp;
     int k;
