@@ -318,7 +318,20 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
     res=infinite_qPochhammer(interval<T>(-a),interval<T>(a*b))*infinite_qPochhammer(interval<T>(-b),interval<T>(a*b))*Euler(interval<T>(a*b));
     return res;
   }
-	
+ template <class T> complex<interval<T> >Ramanujan_psi_sum(const complex<interval<T> >& a,const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
+    // verification program for Ramanujan psi sum
+    if(abs(b/a)<abs(z)&&abs(z)<1&&q<1){
+    complex<interval<T> >res;
+    res=infinite_qPochhammer(complex<interval<T> >(a*z),interval<T>(q))*infinite_qPochhammer(complex<interval<T> >(q/(a*z)),interval<T>(q))
+      *Euler(interval<T>(q))*infinite_qPochhammer(complex<interval<T> >(b/a),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))/infinite_qPochhammer(complex<interval<T> >(b/(a*z)),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(b),interval<T>(q))/infinite_qPochhammer(complex<interval<T> >(q/a),interval<T>(q));
+    return res;
+    }
+    else{
+      throw std::domain_error("Ramanujan psi sum cannot be calculated");
+    }
+}	
   template <class T> interval<T> qPochhammer(const interval<T>& z,const interval<T>& q,const int& n){
     interval<T>res,qp;
     int k;
