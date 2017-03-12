@@ -54,6 +54,8 @@ q-beta function
 
 q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
+q-logarithm
+
 q-gamma functions (Jackson, Moak)
 
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
