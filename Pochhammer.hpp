@@ -17,7 +17,7 @@
 
 #include <kv/interval.hpp>
 #include <kv/rdouble.hpp>
-
+#include <kv/complex.hpp>
 namespace kv{
   template <class T> interval<T> Pochhammer(const interval<T>& a, const int& n){
     interval<T> res;
