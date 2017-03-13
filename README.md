@@ -1,10 +1,10 @@
 # q-special-functions
 
-programs for q-special functions
+programs for q-special functions and q-series
 
 Thank you for checking my programs.
 
-Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
+Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions and q-series with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
 
 If you use my programs in publications, please include the following reference.
 
@@ -40,7 +40,7 @@ https://github.com/o108minmin/pint
 
 DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, and Linux). However, neither an error-free processor nor an error-free program can be guaranteed.
 
-(Functions in this repository)
+(q-special functions in this repository)
 
 Bailey-Daum sum (special case of Heine hypergeometric function)
 
@@ -65,6 +65,26 @@ Ramanujan psi sum
 Ramanujan theta function
 
 symmetric q-gamma, symmetric q-beta
+
+(q-series in this repository)
+
+Bailey Mod9
+
+Dyson Mod27
+
+Gessel-Stanton
+
+Gollnitz-Gordon
+
+Jackson-Slater
+
+Lebesgue
+
+Rogers Mod14
+
+Rogers-Ramanujan
+
+Rogers-Selberg
 
 (References)
 
@@ -105,3 +125,4 @@ Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
 
 Wolfram Mathworld http://mathworld.wolfram.com/
 
+Savage, Sills, On an identity of Gessel and Stanton and new little Gollnitz identities, 2009 
