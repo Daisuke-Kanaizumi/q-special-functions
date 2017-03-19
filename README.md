@@ -60,6 +60,8 @@ q-gamma functions (Jackson, Moak)
 
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
 
+quantum polylogarithm
+
 Ramanujan psi sum
 
 Ramanujan theta function
