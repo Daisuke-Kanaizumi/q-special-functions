@@ -54,6 +54,8 @@ q-beta function
 
 q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
 
+q-digamma
+
 q-logarithm
 
 q-gamma functions (Jackson, Moak)
