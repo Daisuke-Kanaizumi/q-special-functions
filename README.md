@@ -42,11 +42,13 @@ DISCLAIMER: Extensive tests have been performed to ensure reliability of the alg
 
 (q-special functions in this repository)
 
-Bailey-Daum sum (special case of Heine hypergeometric function)
+elliptic gamma function
 
 Heine hypergeometric function
 
 q-Airy functions (HKW, KMNOY, Ramanujan)
+
+q-Barnes G function
 
 q-Bessel functions (Jackson, Hahn-Exton, little, modified)
 
@@ -130,3 +132,5 @@ Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
 Wolfram Mathworld http://mathworld.wolfram.com/
 
 Savage, Sills, On an identity of Gessel and Stanton and new little Gollnitz identities, 2009 
+
+M. A. Bershtein, A. I. Shechechkin, q-deformed Painlev\`e \tau function and q-deformed conformal blocks, arXiv, 2016
