@@ -6,6 +6,8 @@
 // Pochhammer symbol
 // Euler function (q;q)_{\infty}
 // finite and infinite q-Pochhammer symbols
+// elliptic Pochhammer symbol
+// q-Barnes G, elliptic gamma
 // q-exponential function e_q(z)
 // q-sin, q-cos
 // Jackson and Moak q-gamma, q-beta, q-digamma, symmetric q-gamma, symmetric q-beta (Brahim-Sidomou, 2013)
