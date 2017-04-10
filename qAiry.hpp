@@ -96,6 +96,7 @@ template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q
     int N;
     N=1000;
     interval<T> mid,rad,res,ratio,first;
+	mid=1.;
   while(abs(c)>pow(1/q,N)){
      N=N+500;
      //throw std::domain_error("value of N not large enough");
