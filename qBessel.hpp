@@ -82,8 +82,8 @@ T rad;
 if(abs(q)>=1){
 throw std::domain_error("absolute value of q must be under 1");
 }
- if (pow(q,nu)<1 && abs(z)>pow(q,nu)&&z<500){
-   // this method will not converge when z>500
+ if (pow(q,nu)<1 && z*z<4*q){
+   
 j=1;
 K=500;
 a=1.;
