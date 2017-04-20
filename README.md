@@ -46,7 +46,7 @@ elliptic gamma function
 
 Heine hypergeometric function
 
-q-Airy functions (HKW, KMNOY, Ramanujan)
+q-Airy functions (HKW, KMNOY, IKMMS, Ramanujan)
 
 q-Barnes G function
 
@@ -55,6 +55,8 @@ q-Bessel functions (Jackson, Hahn-Exton, little, modified)
 q-beta function
 
 q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
+
+q-Bi function 
 
 q-digamma
 
@@ -134,3 +136,5 @@ Wolfram Mathworld http://mathworld.wolfram.com/
 Savage, Sills, On an identity of Gessel and Stanton and new little Gollnitz identities, 2009 
 
 M. A. Bershtein, A. I. Shechechkin, q-deformed Painlev\`e \tau function and q-deformed conformal blocks, arXiv, 2016
+
+Isojima, Konno, Mimura, Murata, Satsuma, Ultradiscrete Painlev\`e II equation and a special function solution, JOURNAL OF PHYSICS A: MATHEMATICAL AND THEORETICAL, 2011
