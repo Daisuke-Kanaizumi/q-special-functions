@@ -80,6 +80,16 @@ namespace kv {
     res=-z*Heine(interval<T>(q),interval<T>(q),interval<T>(q*q),interval<T>(q),interval<T>(z));
     return res;
   }
+template <class T> complex<interval<T> >little_q_Jacobi(const complex<interval<T> >& lambda,const complex<interval<T> >& x,const complex<interval<T> >& a, const complex<interval<T> >& b,const interval<T>& q) {
+    // verification program for little q-Jacobi function
+    // reference
+    // Ahmed Fitouhi, Fethi Bouzeffour, Wafa Binous
+    // Expansion and asymptotic in terms of basic Bessel functions
+    // Applied Mathematics and Computation 188 (2007) 2034–2044
+    complex<interval<T> >res;
+    res=Heine(complex<interval<T> >(a*lambda),complex<interval<T> >(a/lambda),complex<interval<T> >(a*b),interval<T>(q),complex<interval<T> >(-b*x));
+    return res;
+ }	
  template <class T> complex<interval<T> >Heine(const complex<interval<T> >& a, const complex<interval<T> >& b, const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
     int N;
     N=1000;
