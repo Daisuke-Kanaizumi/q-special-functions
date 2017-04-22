@@ -44,6 +44,8 @@ DISCLAIMER: Extensive tests have been performed to ensure reliability of the alg
 
 elliptic gamma function
 
+little a-Jacobi function 
+
 Heine hypergeometric function
 
 q-Airy functions (HKW, KMNOY, IKMMS, Ramanujan)
@@ -138,3 +140,5 @@ Savage, Sills, On an identity of Gessel and Stanton and new little Gollnitz iden
 M. A. Bershtein, A. I. Shechechkin, q-deformed Painlev\`e \tau function and q-deformed conformal blocks, arXiv, 2016
 
 Isojima, Konno, Mimura, Murata, Satsuma, Ultradiscrete Painlev\`e II equation and a special function solution, JOURNAL OF PHYSICS A: MATHEMATICAL AND THEORETICAL, 2011
+
+Ahmed Fitouhi, Fethi Bouzeffour, Wafa Binous, Expansion and asymptotic in terms of basic Bessel functions, Applied Mathematics and Computation 188 (2007) 2034–2044
