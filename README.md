@@ -146,3 +146,5 @@ Ahmed Fitouhi, Fethi Bouzeffour, Wafa Binous, Expansion and asymptotic in terms 
 H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
 
 A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
+
+Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Advances in Mathematics 209 (2007) 363–380
