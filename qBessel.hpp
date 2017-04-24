@@ -109,7 +109,7 @@ c=1.;
    */
  // alternative implementaion
  // reference
- // H. T Koelink, Hansen-Lommel Orothogonality Relations for Jackson`s q-Bessel functions, formula 3.2
+ // H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
  // Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
  pq=pow(q,nu+1);
  res=pow(z/2,nu)*_1phi_1(interval<T> (-z*z/4),interval<T> (0),interval<T>(q), interval<T> (pq))/Euler(interval<T>(q));
