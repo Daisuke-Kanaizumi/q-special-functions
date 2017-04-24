@@ -4,7 +4,7 @@ programs for q-special functions and q-series
 
 Thank you for checking my programs.
 
-Programs(.cc, .py, .m files, I will make a header file version as soon as possible) in this repository are made to calculate q-special functions and q-series with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
+Programs in this repository are made to calculate q-special functions and q-series with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
 
 If you use my programs in publications, please include the following reference.
 
@@ -38,7 +38,7 @@ If you want to use my Python programs, please install pint.
 pint-interval type Library for Python 3.x
 https://github.com/o108minmin/pint
 
-DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, and Linux). However, neither an error-free processor nor an error-free program can be guaranteed.
+DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, 2017 and Ubuntu 14.04). However, neither an error-free processor nor an error-free program can be guaranteed.
 
 (q-special functions in this repository)
 
@@ -142,3 +142,7 @@ M. A. Bershtein, A. I. Shechechkin, q-deformed Painlev\`e \tau function and q-de
 Isojima, Konno, Mimura, Murata, Satsuma, Ultradiscrete Painlev\`e II equation and a special function solution, JOURNAL OF PHYSICS A: MATHEMATICAL AND THEORETICAL, 2011
 
 Ahmed Fitouhi, Fethi Bouzeffour, Wafa Binous, Expansion and asymptotic in terms of basic Bessel functions, Applied Mathematics and Computation 188 (2007) 2034–2044
+
+H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
+
+A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
