@@ -27,6 +27,12 @@ function res=qPochhammer(z,q)
 % refined implementation
 %  // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
 %       // Zhang, 2008 , Advances in Mathematics
+if q<=0
+error('qPochhammer symbol only for 0<q<1')
+end
+if q>=1
+error('qPochhammer symbol only for 0<q<1')
+end
 n=100;
 while abs(z)*q^n/(1-q)>=0.5
 n=n+500;
