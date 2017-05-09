@@ -56,7 +56,7 @@ template <class T> interval<T> _1phi_1(const interval<T>& a, const interval<T>& 
     if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
 res=infinite_qPochhammer(interval<T>(a*z/c),interval<T>(q))*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(c),interval<T>(q),interval<T>(a*z/c));
     }
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&a<1&&a>0&&c>0&&c<1){
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&a<1&&a>=0&&c>=0&&c<1){
   // Alternative implementation
   // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
   // Zhang, 2008, Advances in Mathematics
