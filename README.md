@@ -50,6 +50,8 @@ Heine hypergeometric function
 
 q-Airy functions (HKW, KMNOY, IKMMS, Ramanujan)
 
+q-Appell function (\Phi_1)
+
 q-Barnes G function
 
 q-Bessel functions (Jackson, Hahn-Exton, little, modified)
