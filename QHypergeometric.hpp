@@ -216,7 +216,28 @@ return res;
     }
     return res;
   }
-  
+complex<interval<T> >& x,const complex<interval<T> >& y){
+    // verification program for the first q-Appell function
+    // reference:DLMF http://dlmf.nist.gov/17.11 formula 17.11.1
+    complex<interval<T> >res;
+    ub::vector<complex<interval<T> > >v1(3),v2(2);
+    v1(0)=c/a;v1(1)=x;v1(2)=y;
+    v2(0)=b*x;v2(1)=bp*y;
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("q must be positive");
+    }
+    res=infinite_qPochhammer(complex<interval<T> >(a),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(b*x),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(bp*y),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(c),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(x),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(y),interval<T>(q))
+      *QHypergeom(ub::vector<complex<interval<T> > >(v1),ub::vector<complex<interval<T> > >(v2),interval<T>(q),complex<interval<T> >(a));
+    return res;
+  }  
 
 }
 #endif
