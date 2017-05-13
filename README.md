@@ -68,6 +68,8 @@ q-logarithm
 
 q-gamma functions (Jackson, Moak)
 
+q-Lauricella function (type D)
+
 quantum dilogarithm Li_2(x;q) (defined by Kirillov)
 
 quantum polylogarithm
