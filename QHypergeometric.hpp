@@ -216,7 +216,8 @@ return res;
     }
     return res;
   }
-complex<interval<T> >& x,const complex<interval<T> >& y){
+  template <class T> complex<interval<T> >qAppell1(const complex<interval<T> >& a,const complex<interval<T> >& b,const complex<interval<T> >& bp,const complex<interval<T> >& c ,
+						     const interval<T>& q,complex<interval<T> >& x,const complex<interval<T> >& y){
     // verification program for the first q-Appell function
     // reference:DLMF http://dlmf.nist.gov/17.11 formula 17.11.1
     complex<interval<T> >res;
@@ -229,6 +230,12 @@ complex<interval<T> >& x,const complex<interval<T> >& y){
     if (q<=0){
       throw std::domain_error("q must be positive");
     }
+    if (abs(x).upper()>=1){
+      throw std::domain_error("absolute value of x must be under 1");
+    }
+    if (abs(y).upper()>=1){
+      throw std::domain_error("absolute value of y must be under 1");
+    }  
     res=infinite_qPochhammer(complex<interval<T> >(a),interval<T>(q))
       *infinite_qPochhammer(complex<interval<T> >(b*x),interval<T>(q))
       *infinite_qPochhammer(complex<interval<T> >(bp*y),interval<T>(q))
@@ -238,6 +245,61 @@ complex<interval<T> >& x,const complex<interval<T> >& y){
       *QHypergeom(ub::vector<complex<interval<T> > >(v1),ub::vector<complex<interval<T> > >(v2),interval<T>(q),complex<interval<T> >(a));
     return res;
   }  
-
+  template <class T> interval<T> infinite_qPochhammer(const ub::vector<interval<T> >& a,const interval<T>& q){
+    interval<T> res,pro;
+    int r;
+    r=a.size();
+    pro=1.;
+    for(int i=0;i<=r-1;i++){
+      pro=pro*infinite_qPochhammer(interval<T>(a(i)),interval<T>(q));
+    }
+    res=pro;
+    return res;
+  }
+  template <class T> complex<interval<T> >infinite_qPochhammer(const ub::vector<complex<interval<T> > >& a,const interval<T>& q){
+    complex<interval<T> >res,pro;
+    int r;
+    r=a.size();
+    pro=1.;
+    for(int i=0;i<=r-1;i++){
+      pro=pro*infinite_qPochhammer(complex<interval<T> >(a(i)),interval<T>(q));
+    }
+    res=pro;
+    return res;
+  }
+  template <class T> complex<interval<T> >qLauricellaD(const complex<interval<T> >& a,const ub::vector<complex<interval<T> > >& b,const complex<interval<T> >& c ,
+						     const interval<T>& q,const ub::vector<complex<interval<T> > >& x){
+    // verification program for the q-Lauricella function type D
+    // reference: Andrews (1972), Gasper-Rahman (2004) (Page 300, Exercise 10.17)
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("q must be positive");
+    }
+    if(b.size()!=x.size()){
+      throw std::domain_error("size of b and x must be same");
+    }
+    int r;
+    r=b.size();
+    for(int k=0;k<=r-1;k++){
+      if(abs(x(k)).upper()>=1){
+      throw std::domain_error("value of x must be under 1");
+      }
+    }
+    complex<interval<T> >res;
+    ub::vector<complex<interval<T> > >v1(r),v2(r);
+    for(int i=0;i<=r-1;i++){
+      v1(i)=b(i)*x(i);
+    }
+    v2(0)=c/a;
+    for(int j=1;j<=r-1;j++){
+      v2(j)=x(j);
+    }
+    res=infinite_qPochhammer(complex<interval<T> >(a),interval<T>(q))/infinite_qPochhammer(complex<interval<T> >(c),interval<T>(q))
+      *infinite_qPochhammer(ub::vector<complex<interval<T> > >(v1),interval<T>(q))/infinite_qPochhammer(ub::vector<complex<interval<T> > >(x),interval<T>(q))
+      *QHypergeom(ub::vector<complex<interval<T> > >(v2),ub::vector<complex<interval<T> > >(v1),interval<T>(q),complex<interval<T> >(a));
+    return res;
+  }
 }
 #endif
