@@ -41,3 +41,19 @@ radq=sup(2*abs(z)*q^n/(1-q));
 radrad=midrad(1,radq);
 res=qPn(z,q,n)*radrad;
 end
+
+function res=qPn(z,q,n)
+% verification program for finite q Pochhammer symbol
+
+if n==0
+  res=1;
+else
+  qp=1;
+  for k=0:n-1
+    qp=qp*(1-z*q^k);
+  end
+  format long
+  res=qp;
+end
+
+end
