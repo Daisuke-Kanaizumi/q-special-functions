@@ -301,5 +301,32 @@ return res;
       *QHypergeom(ub::vector<complex<interval<T> > >(v2),ub::vector<complex<interval<T> > >(v1),interval<T>(q),complex<interval<T> >(a));
     return res;
   }
+	 template <class T> complex<interval<T> >VWP(const complex<interval<T> >& a,const ub::vector<complex<interval<T> > >& b,const interval<T>& q,const complex<interval<T> >& x){
+    // verification program for the very-well-poised q-hypergeometric function
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("q must be positive");
+    }
+    if (abs(x)>=1){
+      throw std::domain_error("absolute value of x must be under 1");
+    }
+    int r;
+    r=b.size()+3;
+    complex<interval<T> >res;
+    ub::vector<complex<interval<T> > >v1(r+1),v2(r);
+    v1(0)=a;v1(1)=q*sqrt(a);v1(2)=-q*sqrt(a);
+    for(int i=3;i<=r;i++){
+      v1(i)=b(i-3);
+    }
+    v2(0)=sqrt(a);v2(1)=-sqrt(a);
+    for(int j=2;j<=r-1;j++){
+      v2(j)=a*q/b(j-2);
+    }
+
+    res=QHypergeom(ub::vector<complex<interval<T> > >(v1),ub::vector<complex<interval<T> > >(v2),interval<T>(q),complex<interval<T> >(x));
+    return res;
+  }
 }
 #endif
