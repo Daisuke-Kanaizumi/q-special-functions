@@ -55,6 +55,7 @@ q-Appell function (\Phi_1)
 q-Barnes G function
 
 q-Bessel functions (Jackson, Hahn-Exton, little, modified)
+Jackson`s 2nd q-Bessel function can be computed by using the integration formula derived by Rahman
 
 q-beta function
 
