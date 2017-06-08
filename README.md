@@ -8,12 +8,10 @@ Programs in this repository are made to calculate q-special functions and q-seri
 
 If you use my programs in publications, please include the following reference.
 
-Daisuke Kanaizumi, Verified numerical computation methods for q-special functions and q-series,
-Bachelor thesis, Department of Applied Mathematics, Waseda University (Japanese document)
+Daisuke Kanaizumi, Programs for q-special functions and q-series,
+https://github.com/Daisuke-Kanaizumi/q-special-functions
 
 You do NOT have to inform your usage to me, but I am very glad to hear how my programs helped you.
-
-I have a plan to translate my thesis in English, but this may take more time. I apologize for the inconvenience.
 
 (Requirements)
 
@@ -32,11 +30,6 @@ If you want to use my MATLAB programs, please install INTLAB.
 INTLAB - INTerval LABoratory
 The Matlab/Octave toolbox for Reliable Computing
 http://www.ti3.tu-harburg.de/rump/intlab/
-
-If you want to use my Python programs, please install pint.
-
-pint-interval type Library for Python 3.x
-https://github.com/o108minmin/pint
 
 DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, 2017 and Ubuntu 14.04). However, neither an error-free processor nor an error-free program can be guaranteed.
 
@@ -124,11 +117,7 @@ SPECIAL FUNCTIONS,
 Encyclopedia of Mathematics and its Applications 71,
 CAMBRIDGE UNIVERSITY PRESS
 
-Don Zagier, The Dilogarithm Function
-
 Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painleve III equation
-
-Yousuke Ohyama, Particular solutions of q-Painleve equations and q-hypergeometric equations
 
 Bouzeffour, New Addition Formula for the Little q-Bessel Functions, arXiv, 2013
 
