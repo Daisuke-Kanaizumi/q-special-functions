@@ -35,7 +35,7 @@
 namespace kv{
 
  
-  template <class T> complex<interval<T> >Ramanujan_qAiry_DE(const interval<T>&q, const complex<interval<T> >&z){
+  template <class T> complex<interval<T> >Ramanujan_qAiry_DE4(const interval<T>&q, const complex<interval<T> >&z){
     // Compute Ramanujan q-Airy function with DE formula
     complex<interval<T> >res,mid1,mid2,i,int1,int2;
     interval<T> d,beta,pi,K,C,h,e,Amax,xhat;
@@ -48,13 +48,14 @@ namespace kv{
     if (q<=0){
       throw std::domain_error("q must be positive");
     }
-    if(q<=exp(-0.5)){
+    i=kv::complex<interval<T> >::i();
+    pi=kv::constants<interval<T> >::pi();
+    e=kv::constants<interval<T> >::e();
+      if(q<=exp(-0.5)){
+
       beta=-1/(2*log(q));
-      K=qPochhammer(interval<T>(-abs(z)*sqrt(q)),interval<T>(q),int(m))*(1+2*abs(z)*pow(q,m+0.5)/(1-q));
+      K=qPochhammer(interval<T>(-abs(z)*sqrt(q)*exp(pi*0.5)),interval<T>(q),int(m))*(1+2*abs(z)*exp(pi*0.5)*pow(q,m+0.5)/(1-q));
       N=100;
-      i=kv::complex<interval<T> >::i();
-      pi=kv::constants<interval<T> >::pi();
-      e=kv::constants<interval<T> >::e();
       d=1.;
       while(2*pi*d*N/beta<e){
 	N=N+10;
@@ -90,10 +91,11 @@ namespace kv{
       
       res=(int1+int2)/sqrt(2*pi*log(1/q));
       return res;
-    }
-    else{
-      throw std::domain_error("value of q must be smaller");
-    }
+      }
+  
+      else{
+	throw std::domain_error("value of q must be smaller");
+      }
   }
   template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >&z, const int &nu,const interval<T>&q){
     // Compute Jackson's 2nd q-Bessel function with DE formula
@@ -113,11 +115,13 @@ namespace kv{
     }
     if(q<=exp(-0.5)){
       beta=-1/(2*log(q));
-      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)/(1-q)*0.5)/infinite_qPochhammer(pow(q,nu+0.5),interval<T>(q))*(1+2*pow(q,m+nu+0.5)/(1-q));
-      N=1000;
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
+      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(pi*0.5)/(1-q)*0.5)
+	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-pi*0.5),interval<T>(q))*(1+2*exp(pi*0.5)*pow(q,m+nu+0.5)/(1-q));
+      N=1000;
+
       d=1.;
       while(d>=abs((nu+0.5)*log(q))){
 	d=d*0.5;
@@ -159,11 +163,13 @@ namespace kv{
       res=(int1+int2)/sqrt(2*pi*log(1/q))/Euler(interval<T>(q))*pow(0.5*z,nu);
       return res;
       }
+
       else{
 	throw std::domain_error("value of q must be smaller");
       }
     }
-	 template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >&z, const interval<T> &nu,const interval<T>&q){
+
+template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >&z, const interval<T> &nu,const interval<T>&q){
     // Compute Jackson's 2nd q-Bessel function with DE formula
     complex<interval<T> >res,mid1,mid2,i,int1,int2;
     interval<T> d,beta,pi,K,C,h,e,Amax,xhat;
@@ -187,11 +193,13 @@ namespace kv{
     }
     if(q<=exp(-0.5)){
       beta=-1/(2*log(q));
-      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)/(1-q)*0.5)/infinite_qPochhammer(pow(q,nu+0.5),interval<T>(q))*(1+2*pow(q,m+nu+0.5)/(1-q));
-      N=1000;
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
+      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(pi*0.5)/(1-q)*0.5)
+	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-pi*0.5),interval<T>(q))*(1+2*exp(pi*0.5)*pow(q,m+nu+0.5)/(1-q));
+      N=1000;
+
       d=1.;
       while(d>=abs((nu+0.5)*log(q))){
 	d=d*0.5;
@@ -237,7 +245,7 @@ namespace kv{
 	throw std::domain_error("value of q must be smaller");
       }
     }
-	template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >&z, const complex<interval<T> >&nu,const interval<T>&q){
+  template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >&z, const complex<interval<T> >&nu,const interval<T>&q){
     // Compute Jackson's 2nd q-Bessel function with DE formula
     complex<interval<T> >res,mid1,mid2,i,int1,int2;
     interval<T> d,beta,pi,K,C,h,e,Amax,xhat;
@@ -261,11 +269,13 @@ namespace kv{
     }
     if(q<=exp(-0.5)){
       beta=-1/(2*log(q));
-      K=qPochhammer(interval<T>(-abs(z*z*pow(q,nu+0.5))*0.25),interval<T>(q),int(m))*(1+abs(z*z*pow(q,m+nu+0.5))/(1-q)*0.5)/infinite_qPochhammer(abs(pow(q,nu+0.5)),interval<T>(q))*(1+2*abs(pow(q,m+nu+0.5))/(1-q));
-      N=1000;
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
+      K=qPochhammer(interval<T>(-abs(z*z*pow(q,nu+0.5))*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z*exp(pi*0.5)*pow(q,m+nu+0.5))/(1-q)*0.5)
+	/infinite_qPochhammer(abs(pow(q,nu+0.5)*exp(-pi*0.5)),interval<T>(q))*(1+2*exp(pi*0.5)*abs(pow(q,m+nu+0.5))/(1-q));
+      N=1000;
+
       d=1.;
       while(d>=abs((nu.real()+0.5)*log(q))){
 	d=d*0.5;
@@ -311,6 +321,7 @@ namespace kv{
 	throw std::domain_error("value of q must be smaller");
       }
     }
+  
 }
 #endif
     
