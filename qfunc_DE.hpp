@@ -68,7 +68,7 @@ namespace kv{
 	xhat=xhat+1;
       }
       Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
-      C=2*Amax/beta*(1+2*K*exp(-beta));
+      C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
       mid1=0.;
@@ -137,7 +137,7 @@ namespace kv{
 	xhat=xhat+1;
       }
       Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
-      C=2*Amax/beta*(1+2*K*exp(-beta));
+      C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
       mid1=0.;
@@ -215,7 +215,7 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
 	xhat=xhat+1;
       }
       Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
-      C=2*Amax/beta*(1+2*K*exp(-beta));
+      C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
       mid1=0.;
@@ -291,7 +291,7 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
 	xhat=xhat+1;
       }
       Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
-      C=2*Amax/beta*(1+2*K*exp(-beta));
+      C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
       mid1=0.;
@@ -321,7 +321,7 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
 	throw std::domain_error("value of q must be smaller");
       }
     }
-  
+ 
 }
 #endif
     
