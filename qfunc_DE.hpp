@@ -67,7 +67,7 @@ namespace kv{
       while(xhat-exp(-xhat)<1){
 	xhat=xhat+1;
       }
-      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
+      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e))*exp(beta),4*exp(beta+1)),4*e/(e-1));
       C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
@@ -136,7 +136,8 @@ namespace kv{
       while(xhat-exp(-xhat)<1){
 	xhat=xhat+1;
       }
-      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
+      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e))*exp(beta),4*exp(beta+1)),4*e/(e-1));
+
       C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
@@ -214,7 +215,8 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
       while(xhat-exp(-xhat)<1){
 	xhat=xhat+1;
       }
-      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
+      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e))*exp(beta),4*exp(beta+1)),4*e/(e-1));
+
       C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
@@ -290,7 +292,8 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
       while(xhat-exp(-xhat)<1){
 	xhat=xhat+1;
       }
-      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e)),4*exp(beta+1)),e/(e-1));
+      Amax=std::max(std::max((exp(-exp(-xhat))+1)*(1+exp(xhat))/(exp(xhat)-exp(exp(-xhat)))/exp(beta*exp(-1/e))*exp(beta),4*exp(beta+1)),4*e/(e-1));
+
       C=2*Amax/beta*(1+2*exp(-beta)/(1-exp(-beta*e)));
       h=log(2*pi*N*d/beta)/N;
       rad=(C*exp(-2*pi*d/h)).upper();
