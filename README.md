@@ -48,7 +48,7 @@ q-Appell function (\Phi_1)
 q-Barnes G function
 
 q-Bessel functions (Jackson, Hahn-Exton, little, modified)
-Jackson`s 2nd q-Bessel function can be computed by using the integration formula derived by Rahman
+Jackson`s 2nd q-Bessel function can be computed by using the integration formulas derived by Rahman (1987) and Ismail-Zhang (2016,arXiv)
 
 q-beta function
 
@@ -75,24 +75,7 @@ Ramanujan theta function
 symmetric q-gamma, symmetric q-beta
 
 (q-series in this repository)
-
-Bailey Mod9
-
-Dyson Mod27
-
-Gessel-Stanton
-
-Gollnitz-Gordon
-
-Jackson-Slater
-
-Lebesgue
-
-Rogers Mod14
-
-Rogers-Ramanujan
-
-Rogers-Selberg
+Bailey Mod9, Dyson Mod27, Gessel-Stanton, Gollnitz-Gordon, Jackson-Slater ,Lebesgue, Rogers Mod14, Rogers-Ramanujan, Rogers-Selberg
 
 (References)
 
