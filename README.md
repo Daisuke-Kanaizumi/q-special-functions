@@ -142,3 +142,5 @@ H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel funct
 A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
 
 Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Advances in Mathematics 209 (2007) 363–380
+
+Kenichiro Tanaka, Masaaki Sugihara, Kazuo Murota, Masatake Mori (2007) Function Classes for Double Exponential Integration Formulas. Mathematical Engineering Technical Reports, METR2007-07, University of Tokyo. 
