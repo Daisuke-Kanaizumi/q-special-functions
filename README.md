@@ -127,3 +127,5 @@ A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bess
 Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Advances in Mathematics 209 (2007) 363–380
 
 Kenichiro Tanaka, Masaaki Sugihara, Kazuo Murota, Masatake Mori (2007) Function Classes for Double Exponential Integration Formulas. Mathematical Engineering Technical Reports, METR2007-07, University of Tokyo. 
+
+Bruno Gabutti, Giampietro Allasia, (2008). Evaluation of q-gamma function and q-analogues by iterative algorithms. Numerical Algorithms, 49(1), 159-168.
