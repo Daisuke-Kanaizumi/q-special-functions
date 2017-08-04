@@ -6,6 +6,8 @@ Thank you for checking my programs.
 
 Programs in this repository are made to calculate q-special functions and q-series with guaranteed accuracy. All q-special functions are computed by calculating infinite q-Pochhammer symbols and q-hypergeometric series with guaranteed accuaracy. 
 
+Note: The function "complex_nbd" is defined in Heine.hpp. This works like "cintval" in INTLAB.
+
 If you use my programs in publications, please include the following reference.
 
 Daisuke Kanaizumi, Programs for q-special functions and q-series,
