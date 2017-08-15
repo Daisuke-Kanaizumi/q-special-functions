@@ -54,7 +54,7 @@ namespace kv{
       if(q<=exp(-0.5)){
 
       beta=-1/(2*log(q));
-      K=qPochhammer(interval<T>(-abs(z)*sqrt(q)*exp(pi*0.5)),interval<T>(q),int(m))*(1+2*abs(z)*exp(pi*0.5)*pow(q,m+0.5)/(1-q));
+      K=qPochhammer(interval<T>(-abs(z)*sqrt(q)*exp(d)),interval<T>(q),int(m))*(1+2*abs(z)*exp(d)*pow(q,m+0.5)/(1-q));
       N=100;
       d=1.;
       while(2*pi*d*N/beta<e){
@@ -120,8 +120,8 @@ namespace kv{
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
-      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(pi*0.5)/(1-q)*0.5)
-	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-pi*0.5),interval<T>(q))*(1+2*exp(pi*0.5)*pow(q,m+nu+0.5)/(1-q));
+      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(d)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(d)/(1-q)*0.5)
+	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-d),interval<T>(q))*(1+2*exp(d)*pow(q,m+nu+0.5)/(1-q));
       N=1000;
 
       d=1.;
@@ -201,8 +201,8 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
-      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(pi*0.5)/(1-q)*0.5)
-	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-pi*0.5),interval<T>(q))*(1+2*exp(pi*0.5)*pow(q,m+nu+0.5)/(1-q));
+      K=qPochhammer(interval<T>(-abs(z*z)*pow(q,nu+0.5)*exp(d)*0.25),interval<T>(q),int(m))*(1+abs(z*z)*pow(q,m+nu+0.5)*exp(d)/(1-q)*0.5)
+	/infinite_qPochhammer(pow(q,nu+0.5)*exp(-d),interval<T>(q))*(1+2*exp(d)*pow(q,m+nu+0.5)/(1-q));
       N=1000;
 
       d=1.;
@@ -280,8 +280,8 @@ template <class T> complex<interval<T> >Jackson2_DE4(const complex<interval<T> >
       i=kv::complex<interval<T> >::i();
       pi=kv::constants<interval<T> >::pi();
       e=kv::constants<interval<T> >::e();
-      K=qPochhammer(interval<T>(-abs(z*z*pow(q,nu+0.5))*exp(pi*0.5)*0.25),interval<T>(q),int(m))*(1+abs(z*z*exp(pi*0.5)*pow(q,m+nu+0.5))/(1-q)*0.5)
-	/infinite_qPochhammer(abs(pow(q,nu+0.5)*exp(-pi*0.5)),interval<T>(q))*(1+2*exp(pi*0.5)*abs(pow(q,m+nu+0.5))/(1-q));
+      K=qPochhammer(interval<T>(-abs(z*z*pow(q,nu+0.5))*exp(d)*0.25),interval<T>(q),int(m))*(1+abs(z*z*exp(d)*pow(q,m+nu+0.5))/(1-q)*0.5)
+	/infinite_qPochhammer(abs(pow(q,nu+0.5)*exp(-d)),interval<T>(q))*(1+2*exp(d)*abs(pow(q,m+nu+0.5))/(1-q));
       N=1000;
 
       d=1.;
