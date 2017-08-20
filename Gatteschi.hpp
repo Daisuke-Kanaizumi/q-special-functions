@@ -56,5 +56,46 @@ namespace kv{
     res=complex_nbd(mid,rad);
     return res;
   }
+  template <class T> interval<T> Gatteschi_qp(const interval<T> & z,const interval<T>& q){
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("value of q must be positive");
+    }
+    
+    int N,N0,m;
+    N=100;
+    N0=std::floor((0.5-log(abs(z))/log(q)).upper());
+    while (abs(z*pow(q,N))>=1){
+      N=N+50;
+    }
+    // This condition is not mentioned in the reference above, but necessary for the convergence of the error term
+    if(N<N0){
+      N=N0;
+    }
+    // Optimal value of N mentioned in the reference above
+    m=std::floor((sqrt(2*log(std::pow(10.,-18.))/log(q))).upper());
+    interval<T>  mid,res,qn,sum,d,x,qpower;
+    qn=1.;
+    sum=1.;
+    d=1.;
+    x=1.;
+    for(int i=0;i<=N-1;i++){
+      qn=qn*(1-z*pow(q,i));
+    }
+    // The reference above has mistaken Q_N(x) and G(x) (formula 16) 
+    for(int k=1;k<=m-1;k++){
+      d=d*pow(q,k-1)/(1-pow(q,k))*(1-q);
+      x=x*(-z);
+      qpower=qpower*pow(q,N);
+      sum=sum+d*x*qpower;
+    }
+    mid=qn*sum;
+    T rad;
+    rad=(abs(qn)*pow(abs(z*pow(q,N)),m)*pow(q,m*(m-1)*0.5)/(1-abs(z*pow(q,N)))).upper();
+    res=mid+rad*interval<T>(-1.,1.);
+    return res;
+  }
 }
 #endif
