@@ -21,7 +21,7 @@
 #include <kv/rdouble.hpp>
 #include <kv/complex.hpp>
 #include <kv/constants.hpp>
-#include <kv/dilogarithm.hpp>
+
 #include <kv/Heine.hpp>
 namespace kv{
   template <class T> interval<T> Pochhammer(const interval<T>& a, const int& n){
@@ -196,19 +196,7 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
    res=Euler(interval<T>(q))/Karpelevich(complex<interval<T> >(z),interval<T>(q));
    return res;
    }*/
- /*
- // abolished implementation (March 28th, 2017)
-    if(abs(z)<1 && abs(arg(1-z))<pi && z.imag()!=0){
-      // Reference: Thomas Prellberg (1995), Uniform q-series asymptotics for staircase polygons
-      // Journal of Physics A: Mathematical and General
-      logmid=dilogarithm(complex<interval<T> >(z))/log(q)+log(1-z)/2;
-      // dilogarithm OK
-      rad=(abs(log(q))*(log(abs(1-z))+atan(z.imag()/(1-z.real()))*z.real()/z.imag())/6).upper();
-      logres=complex_nbd(logmid,rad);
-      res=exp(logres);
-      return res;   
-    }
- */
+
  // else{
       // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
       // Zhang, 2008
