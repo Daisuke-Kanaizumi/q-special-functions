@@ -54,8 +54,6 @@ Jackson`s 2nd q-Bessel function can be computed by using the integration formula
 
 q-beta function
 
-q-beta integrals (Askey-Wilson, Nassrallah-Rahman, Ramanujan)
-
 q-Bi function 
 
 q-digamma
