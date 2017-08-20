@@ -216,11 +216,11 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       while(abs(z)*pow(q,n)/(1-q)>=0.5){
 	n=n+500;
       }
-  rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
-  r=interval<T>(1-rad,1+rad);
-  res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
-  return res;
-  //   }
+      rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
+      r=complex_nbd(complex<interval<T> >(1.,0),rad);
+      res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
+      return res;
+      //   }
   }
   /*
 template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q){
