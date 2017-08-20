@@ -179,8 +179,8 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
   
   
   template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const interval<T>& q){
-    complex<interval<T> >res,logqp,logmid,logres;
-    interval<T> r,pi;
+    complex<interval<T> >res,r
+    interval<T> pi;
     pi=constants<interval<T> >::pi();
     T rad;
     int n;
