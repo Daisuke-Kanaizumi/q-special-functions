@@ -102,8 +102,8 @@ if(abs(q)>=1){
 throw std::domain_error("absolute value of q must be under 1");
 }
 
- if (pow(q,nu)<1 && z*z<4*q){
-j=1;
+// if (pow(q,nu)<1 && z*z<4*q){
+/*j=1;
 K=500;
 a=1.;
 b=1.;
@@ -121,19 +121,19 @@ c=1.;
  rad=abs(pow(q,K*(K+1))*pow(pow(q,nu+1)*z*z/4,K+1)/(b*c)).upper();
  series=a+rad*interval<T>(-1.,1.);
  res=pow(z/2,nu)*series/Karpelevich(interval<T>(pow(q,nu+1)),interval<T>(q));
-}
- else{
-   /* implementation by original definition
-   res=pow(z*0.5,nu)*infinite_qPochhammer(interval<T>(pow(q,nu+1)),interval<T>(q))*
-     _0phi_1(interval<T>(pow(q,nu+1)),interval<T>(q),interval<T>(-z*z*pow(q,nu+1)/4))/Euler(interval<T>(q));
-   */
+*/ //}
+// else{
+   /* implementation by original definition*/
+// res=pow(z*0.5,nu)*infinite_qPochhammer(interval<T>(pow(q,nu+1)),interval<T>(q))*
+//  _0phi_1(interval<T>(pow(q,nu+1)),interval<T>(q),interval<T>(-z*z*pow(q,nu+1)/4))/Euler(interval<T>(q));
+   
  // alternative implementaion
  // reference
  // H. T Koelink, Hansen-Lommel orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
  // Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
  pq=pow(q,nu+1);
  res=pow(z/2,nu)*_1phi_1(interval<T> (-z*z/4),interval<T> (0),interval<T>(q), interval<T> (pq))/Euler(interval<T>(q));
- }
+ // }
   return res;
 }
 template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
@@ -142,14 +142,11 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
     throw std::domain_error("absolute value of q must be under 1");
   }
   pq=pow(q,nu+1);
-  
-  
-  
-  /* implementation by original definition
+  /* implementation by original definition*/
      
-     res=pow(z/2,nu)*infinite_qPochhammer(complex<interval<T> >(pq),interval<T>(q))*
-     _0phi_1(complex<interval<T> >(pq),interval<T>(q),complex<interval<T> >(-z*z*pq/4))/Euler(interval<T>(q));
-  */
+  //  res=pow(z/2,nu)*infinite_qPochhammer(complex<interval<T> >(pq),interval<T>(q))*
+  //  _0phi_1(complex<interval<T> >(pq),interval<T>(q),complex<interval<T> >(-z*z*pq/4))/Euler(interval<T>(q));
+  
   // alternative implementaion
   // reference
   // H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
@@ -390,17 +387,17 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
       n=n+10;
     }
 
-    complex<interval<T> >res,integral;
+    complex<interval<T> >res,integral,num1,denom;
 
-    interval<T> num1,num2,denom;
+    interval<T> num2;
     interval<T> pi,realint,imagint;
     T numrad1,numrad2,denomrad;
     numrad1=(abs(z*pow(q,nu/2+n+0.5))*2/(1-q)).upper();
-    num1=pow((1+numrad1*interval<T>(-1.,1.)),2);
+    num1=pow(complex_nbd(complex<interval<T> >(1,0),numrad1),2);
     numrad2=(pow(q,n)*2/(1-q)).upper();
     num2=pow((1+numrad2*interval<T>(-1.,1.)),2);
     denomrad=(abs(pow(q,nu+n))*2/(1-q)).upper();
-    denom=pow((1+denomrad*interval<T>(-1.,1.)),2);
+    denom=pow(complex_nbd(complex<interval<T> >(1,0),denomrad),2);
     pi=constants<interval<T> >::pi();
     realint=defint(qBesselintegral_z_complex_real<interval<T> >(z,q,nu,n),interval<T>(0.),interval<T>(pi),10,10);
     imagint=defint(qBesselintegral_z_complex_imag<interval<T> >(z,q,nu,n),interval<T>(0.),interval<T>(pi),10,10);
@@ -438,12 +435,15 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
       throw std::domain_error("absolute value of q must be under 1");
     }
     pq=pow(q,nu+1);
-    /* implementation by original definition
-       res=pow(z,nu)*infinite_qPochhammer(interval<T> (pq),interval<T>(q))*
-       _1phi_1(interval<T> (0),interval<T> (pq),interval<T>(q),interval<T> (z*z*q))/Euler(interval<T>(q));
-    */
-    res=pow(z,nu)*infinite_qPochhammer(interval<T> (z*z*q),interval<T>(q))*_1phi_1(interval<T> (0),interval<T> (z*z*q),interval<T>(q),interval<T> (pq))/Euler(interval<T> (q));
-    return res;       
+    /* implementation by original definition*/
+    /*    res=pow(z,nu)*infinite_qPochhammer(interval<T> (pq),interval<T>(q))*
+	  _1phi_1(interval<T> (0),interval<T> (pq),interval<T>(q),interval<T> (z*z*q))/Euler(interval<T>(q));*/
+       // alternative implementation
+       // A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, formula 4.6
+       // Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
+       
+	 res=pow(z,nu)*infinite_qPochhammer(interval<T> (z*z*q),interval<T>(q))*_1phi_1(interval<T> (0),interval<T> (z*z*q),interval<T>(q),interval<T> (pq))/Euler(interval<T> (q));
+       return res;       
   }
   template <class T> complex<interval<T> >Hahn_Exton(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
     // verification program for Hahn-Exton q-Bessel function
@@ -452,15 +452,15 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
       throw std::domain_error("absolute value of q must be under 1");
     }
     pq=pow(q,nu+1);
-    /* implementation by original definition
-       res=pow(z,nu)*infinite_qPochhammer(complex<interval<T> >(pq),interval<T>(q))*
+    /* implementation by original definition*/
+    /*  res=pow(z,nu)*infinite_qPochhammer(complex<interval<T> >(pq),interval<T>(q))*
        _1phi_1(complex<interval<T> >(0),complex<interval<T> >(pq),interval<T>(q),complex<interval<T> >(z*z*q))/Euler(interval<T>(q));
     */
     // alternative implementation
     // A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, formula 4.6
     // Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
     res=pow(z,nu)*infinite_qPochhammer(complex<interval<T> >(z*z*q),interval<T>(q))*_1phi_1(complex<interval<T> >(0),complex<interval<T> >(z*z*q),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T> (q));
-    return res;       
+     return res;       
   }
   template <class T> complex<interval<T> >little(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
     // verification program for little q-Bessel function
