@@ -8,9 +8,10 @@
 // finite and infinite q-Pochhammer symbols
 // elliptic Pochhammer symbol
 // q-Barnes G, elliptic gamma
+
 // q-exponential function e_q(z)
 // q-sin, q-cos
-// Jackson and Moak q-gamma, q-beta, q-digamma, symmetric q-gamma, symmetric q-beta (Brahim-Sidomou, 2013)
+
 // quantum dilogarithm, quantum polylogarithm (Kirillov, 1994)
 // Ramanujan theta, Ramanujan psi sum
 
@@ -179,8 +180,8 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
   
   
   template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const interval<T>& q){
-    complex<interval<T> >res,r
-    interval<T> pi;
+    complex<interval<T> >res,logqp,logmid,logres;
+    interval<T> r,pi;
     pi=constants<interval<T> >::pi();
     T rad;
     int n;
@@ -196,7 +197,19 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
    res=Euler(interval<T>(q))/Karpelevich(complex<interval<T> >(z),interval<T>(q));
    return res;
    }*/
-
+ /*
+ // abolished implementation (March 28th, 2017)
+    if(abs(z)<1 && abs(arg(1-z))<pi && z.imag()!=0){
+      // Reference: Thomas Prellberg (1995), Uniform q-series asymptotics for staircase polygons
+      // Journal of Physics A: Mathematical and General
+      logmid=dilogarithm(complex<interval<T> >(z))/log(q)+log(1-z)/2;
+      // dilogarithm OK
+      rad=(abs(log(q))*(log(abs(1-z))+atan(z.imag()/(1-z.real()))*z.real()/z.imag())/6).upper();
+      logres=complex_nbd(logmid,rad);
+      res=exp(logres);
+      return res;   
+    }
+ */
  // else{
       // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
       // Zhang, 2008
@@ -204,11 +217,11 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       while(abs(z)*pow(q,n)/(1-q)>=0.5){
 	n=n+500;
       }
-      rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
-      r=complex_nbd(complex<interval<T> >(1.,0),rad);
-      res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
-      return res;
-      //   }
+  rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
+  r=interval<T>(1-rad,1+rad);
+  res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
+  return res;
+  //   }
   }
   /*
 template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q){
@@ -284,7 +297,7 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       pp*=p;
       mid=mid+pz/n/(1-pq)/(1-pp);
     }
-    first=abs(pow(z,N)/N/(1-pow(q,N)));
+    first=abs(pow(z,N)/N/(1-pow(p,N))/(1-pow(q,N)));
     ratio=abs(z)*(1+1/(N+1))*(1+abs(q-1)*abs(pow(q,N))/abs(1-pow(q,N+1)))*(1+abs(p-1)*abs(pow(p,N))/abs(1-pow(p,N+1)));
       if (ratio<1){
       rad=(first/(1-ratio)).upper();
@@ -463,111 +476,8 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
     }
     return res;
   }
- template <class T> interval<T> q_gamma(const interval<T>& z,const interval<T>& q){
-   // q must be positive
-   // verification program for q-gamma function
-   interval<T>res;
-   if(q<1 && q>0){
-     if(pow(q,z)<1){
-       res=pow(1-q,1-z)*Karpelevich(interval<T>(pow(q,z)),interval<T>(q));
-     }
-     else{
-       res=Euler(interval<T>(q))*pow(1-q,1-z)/infinite_qPochhammer(interval<T>(pow(q,z)),interval<T>(q));
-     }
-   }
-   if(q>1){ // Moak q-gamma function
-     if(pow(q,-z)<1){
-       res=pow(q-1,1-z)*pow(q,z*(z-1)/2)*Karpelevich(interval<T>(pow(q,-z)),interval<T>(1/q));
-     }
-     else{
-       res=Euler(interval<T>(1/q))*pow(q-1,1-z)*pow(q,z*(z-1)/2)/infinite_qPochhammer(interval<T>(pow(q,-z)),interval<T>(1/q));
-     }
-   }
-   return res;
- }
-  template <class T> complex<interval<T> >q_gamma(const complex<interval<T> >& z,const interval<T>& q){
-    complex<interval<T> >res;
-    if(q<1 && q>0){
-      res=Euler(interval<T>(q))*pow(1-q,1-z)/infinite_qPochhammer(complex<interval<T> >(pow(q,z)),interval<T>(q));
-    }
-    if(q>1){
-      res=Euler(interval<T>(1/q))*pow(q-1,1-z)*pow(q,z*(z-1)/2)/infinite_qPochhammer(complex<interval<T> >(pow(q,-z)),interval<T>(1/q));
-    }
-    return res;
- } template <class T> interval<T> q_digamma(const interval<T>& x,const interval<T>& q){
-   // q,x must be positive
-   // verification program for q-digamma function
-   // Reference: Kamel Brahim (2009), Turan-Type Inequalities for some q-Special Functions
-   // Journal of inequalities in pure and applied mathematics, Volume 10
-   interval<T>res,sum,qq,first,ratio;
-   T rad;
-   int N=100;
-   sum=0.;
-   qq=1.;
-    if (q>=1){
-     throw std::domain_error("value of q must be under 1");
-   }
-   if (q<=0){
-     throw std::domain_error("q must be positive");
-   }
-   if (x<=0){
-     throw std::domain_error("implemented for positive x");
-   }
-   for(int n=1;n<=N-1;n++){
-     qq=qq*q;
-     sum=sum+pow(q,n*x)/(1-qq);
-   }
-   qq=qq*q;
-   first=pow(q,N*x)/(1-qq);
-   ratio=(1-qq)*pow(q,x)/(1-qq*q);
- if(abs(ratio)<1){
-      rad=(first/(1-ratio)).upper();
-      res=-log(1-q)+log(q)*(sum+rad*interval<T>(-1.,1.));
-      return res;
-    }
-    else{
-      std::cout<<"ratio is more than 1"<<std::endl;
-    } 
- }
- template <class T> interval<T> q_beta(const interval<T>& a,const interval<T>& b,const interval<T>& q){
-   // q must be positive
-   // verification program for q-beta function
-   interval<T>res;
-   res=q_gamma(interval<T>(a),interval<T>(q))*q_gamma(interval<T>(b),interval<T>(q))/q_gamma(interval<T>(a+b),interval<T>(q));
-   return res;
- }
-  template <class T> complex<interval<T> >q_beta(const complex<interval<T> >& a,const complex<interval<T> >& b,const interval<T>& q){
-   // q must be positive
-   // verification program for q-beta function
-    complex<interval<T> >res;
-    res=q_gamma(complex<interval<T> >(a),interval<T>(q))*q_gamma(complex<interval<T> >(b),interval<T>(q))/q_gamma(complex<interval<T> >(a+b),interval<T>(q));
-    return res;
-  }
- template <class T> interval<T> symmetric_q_gamma(const interval<T>& z,const interval<T>& q){
-   // verification program for symmetric q-gamma function
-   // reference
-   // Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
-   interval<T>res;
-   res=pow(q,-(z-1)*(z-2)/2)*q_gamma(interval<T>(z),interval<T>(q*q));
-   return res;
- }
- template <class T> interval<T> symmetric_q_beta(const interval<T>& a,const interval<T>& b,const interval<T>& q){
-   // q,a,b must be positive
-   // verification program for symmetric q-beta function
-   // reference
-   // Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
-   interval<T>res;
-   res=symmetric_q_gamma(interval<T>(a),interval<T>(q))*symmetric_q_gamma(interval<T>(b),interval<T>(q))/symmetric_q_gamma(interval<T>(a+b),interval<T>(q));
-   return res;
- }
-  template <class T> complex<interval<T> >symmetric_q_gamma(const complex<interval<T> >& z,const interval<T>& q){
-   // verification program for symmetric q-gamma function
-   // reference
-   // Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
-    complex<interval<T> >res;
-    res=pow(q,-(z-1)*(z-2)/2)*q_gamma(complex<interval<T> >(z),interval<T>(q*q));
-   return res;
- }
+ 
+
   template <class T> interval<T>Ramanujan_theta(const interval<T>& a,const interval<T>& b){
     // verification program for Ramanujan theta function
     interval<T>res;
