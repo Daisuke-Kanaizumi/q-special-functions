@@ -16,7 +16,11 @@
 #include <kv/defint.hpp>
 #include <kv/Heine.hpp>
 #include <kv/Pochhammer.hpp>
+#include <kv/QHypergeometric.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
 #include <limits>
+namespace ub = boost::numeric::ublas;
 namespace kv{
 template <class T> interval<T>Jackson1(const interval<T>& z,const interval<T>& nu,const interval<T>& q){
 // verification program for Jackson`s 1st q-Bessel function
@@ -134,10 +138,12 @@ c=1.;
  pq=pow(q,nu+1);
  res=pow(z/2,nu)*_1phi_1(interval<T> (-z*z/4),interval<T> (0),interval<T>(q), interval<T> (pq))/Euler(interval<T>(q));
  // }
+
   return res;
 }
 template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
-  complex<interval<T> >res,pq;
+  complex<interval<T> >res,pq,i;
+  i=complex<interval<T> >::i();
   if(abs(q)>=1){
     throw std::domain_error("absolute value of q must be under 1");
   }
@@ -151,9 +157,51 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
   // reference
   // H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
   // Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
-  
+  try{
   res=pow(z/2,nu)*_1phi_1(complex<interval<T> >(-z*z/4),complex<interval<T> >(0),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T>(q));
+   }
+  // alternative implementaion
+  // reference
+  // Y. Chen , M. E. Ismail, K. A. Muttalib. Asymptotics of basic Bessel functions and q-Laguerre polynomials, Lemma 2
+  // Journal of Computational and Applied Mathematics, 54(3), 263-272 (1994).
+  catch(std::domain_error){
+    ub::vector< complex<interval<T> > > a(3);
+    ub::vector< complex<interval<T> > > b(2);
+    ub::vector< complex<interval<T> > > c(2);
+    a(0)=pow(q,(nu+0.5)*0.5);
+    a(1)=-pow(q,(nu+0.5)*0.5);
+    a(2)=0.;
+    b(0)=-sqrt(q);
+    b(1)=i*a(0)*z*0.5;
+    c(0)=-sqrt(q);
+    c(1)=-b(1);
+
+    res=pow(z*0.5,nu)*infinite_qPochhammer(interval<T>(sqrt(q)),interval<T>(q))/Euler(interval<T>(q))*0.5
+      *(infinite_qPochhammer(complex<interval<T> >(b(1)),interval<T>(sqrt(q)))
+	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0))+
+	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
+	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
+  }  
   
+  if((abs(res)).upper()==std::numeric_limits<T>::infinity()){  
+    ub::vector< complex<interval<T> > > a(3);
+    ub::vector< complex<interval<T> > > b(2);
+    ub::vector< complex<interval<T> > > c(2);
+    a(0)=pow(q,(nu+0.5)*0.5);
+    a(1)=-pow(q,(nu+0.5)*0.5);
+    a(2)=0.;
+    b(0)=-sqrt(q);
+    b(1)=i*a(0)*z*0.5;
+    c(0)=-sqrt(q);
+    c(1)=-b(1);
+
+    res=pow(z*0.5,nu)*infinite_qPochhammer(interval<T>(sqrt(q)),interval<T>(q))/Euler(interval<T>(q))*0.5
+      *(infinite_qPochhammer(complex<interval<T> >(b(1)),interval<T>(sqrt(q)))
+	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0))+
+	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
+	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
+  }
+
   return res;       
 }
   template <class TT> struct qBesselintegral_nu_int_real {
