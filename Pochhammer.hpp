@@ -22,7 +22,7 @@
 #include <kv/rdouble.hpp>
 #include <kv/complex.hpp>
 #include <kv/constants.hpp>
-
+#include <kv/Gatteschi.hpp>
 #include <kv/Heine.hpp>
 namespace kv{
   template <class T> interval<T> Pochhammer(const interval<T>& a, const int& n){
@@ -145,15 +145,14 @@ namespace kv{
     
   }
   
-template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q){
+  template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q,int n=100){
   // Revised implementation of infinite q-Pochhammer symbols
   // March 9th, 2017
 
   // 0<q<1
   interval<T> res,r;
   T rad;
-  int n;
-  n=100;/*
+  /*
   abolished implementation	  
   if(abs(z)<1){
     // reference: The Modified q-Bessel Functions and the q-Bessel-Macdonald Functions
@@ -168,24 +167,26 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
   // Zhang, 2008
 
   while(abs(z)*pow(q,n)/(1-q)>=0.5){
-    n=n+500;
+    n=n+50;
   }
-
-  rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
-  r=interval<T>(1-rad,1+rad);
-  res=qPochhammer(interval<T>(z),interval<T>(q),int(n))*r;
+  if(q<0.9){
+    rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
+    r=interval<T>(1-rad,1+rad);
+    res=qPochhammer(interval<T>(z),interval<T>(q),int(n))*r;
+  }
+  else{
+    res=Gatteschi_qp(interval<T>(z),interval<T>(q));
+  }
   return res;
   //}
 }
   
   
-  template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const interval<T>& q){
+  template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const interval<T>& q,int n=100){
     complex<interval<T> >res,logqp,logmid,logres;
     interval<T> r,pi;
     pi=constants<interval<T> >::pi();
     T rad;
-    int n;
-    n=100;
     
  
     /* 
@@ -215,7 +216,7 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       // Zhang, 2008
       
       while(abs(z)*pow(q,n)/(1-q)>=0.5){
-	n=n+500;
+	n=n+50;
       }
   rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
   r=interval<T>(1-rad,1+rad);
