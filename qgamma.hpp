@@ -54,7 +54,7 @@ template <class T> interval<T> q_gamma(const interval<T>& z,const interval<T>& q
     }
     return res;
  }
-  template <class T> complex<interval<T> >qgamma_Gauss_multi(const complex<interval<T> >& z,const interval<T>& q, const int& p){
+  template <class T> complex<interval<T> >qgamma_Gauss_multi(const complex<interval<T> >& z,const interval<T>& q, int  p=3){
   if(q<1 && q>0){
     // M Mansour (2006) An asymptotic expansion of the q-gamma function Γ q (x), Journal of Nonlinear Mathematical Physics, 13:4, 479-483, DOI: 10.2991/jnmp.2006.13.4.2
     // G Gasper , M Rahman, Basic Hypergeometric Series 2nd Edition, Cambridge University Press, 2004.
@@ -96,7 +96,16 @@ template <class T> complex<interval<T> >qgamma_Legendre(const complex<interval<T
     throw std::domain_error("implemented for 0<q<1");
   }
 }
-
+  template <class T> complex<interval<T> >qgamma_shift(const complex<interval<T> >& z,const interval<T>& q, int p=3){
+    // computing the q-gamma function with functional equation
+    // G Gasper , M Rahman, Basic Hypergeometric Series 2nd Edition, Cambridge University Press, 2004.
+    complex<interval<T> >pro;
+    pro=1.;    
+    for(int i=1;i<=p;i++){
+      pro=pro*(1-pow(q,z-i))/(1-q);
+    }
+    pro=pro*q_gamma(complex<interval<T> >(z-p),interval<T>(q));
+  }
   template <class T> interval<T> q_digamma(const interval<T>& x,const interval<T>& q){
     // q,x must be positive
    // verification program for q-digamma function
