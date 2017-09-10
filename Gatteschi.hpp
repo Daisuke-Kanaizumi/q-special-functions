@@ -14,7 +14,7 @@
 #include <cmath>
 
 namespace kv{
-  template <class T> complex<interval<T> >Gatteschi_qp(const complex<interval<T> >& z,const interval<T>& q){
+  template <class T> complex<interval<T> >Gatteschi_qp(const complex<interval<T> >& z,const interval<T>& q, int N=100){
     if (q>=1){
       throw std::domain_error("value of q must be under 1");
     }
@@ -22,8 +22,7 @@ namespace kv{
       throw std::domain_error("value of q must be positive");
     }
     
-    int N,N0,m;
-    N=100;
+    int N0,m;
     N0=std::floor((0.5-log(abs(z))/log(q)).upper());
     while (abs(z*pow(q,N))>=1){
       N=N+50;
@@ -56,7 +55,7 @@ namespace kv{
     res=complex_nbd(mid,rad);
     return res;
   }
-  template <class T> interval<T> Gatteschi_qp(const interval<T> & z,const interval<T>& q){
+  template <class T> interval<T> Gatteschi_qp(const interval<T> & z,const interval<T>& q,int N=100){
     if (q>=1){
       throw std::domain_error("value of q must be under 1");
     }
@@ -64,8 +63,7 @@ namespace kv{
       throw std::domain_error("value of q must be positive");
     }
     
-    int N,N0,m;
-    N=100;
+    int N0,m;
     N0=std::floor((0.5-log(abs(z))/log(q)).upper());
     while (abs(z*pow(q,N))>=1){
       N=N+50;
