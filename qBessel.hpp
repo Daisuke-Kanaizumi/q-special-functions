@@ -80,25 +80,39 @@ res=pow(z/2,nu)*infinite_qPochhammer(complex<interval<T> >(pow(q,nu+1)),interval
  return res;       
 }
 
-template <class T> complex<interval<T> >modified_qBessel1(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
-  // verification program for 1st modified q-Bessel
+template <class T> complex<interval<T> >modified_qBesselI1(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
+  // verification program for 1st modified q-Bessel I1
   complex<interval<T> >res,i;
-if(abs(q)>=1){
-throw std::domain_error("absolute value of q must be under 1");
-}
- if(abs(z).upper()>=2){
-throw std::domain_error("1st modified q-Bessel function is not defined");
-}
+  if(abs(q)>=1){
+    throw std::domain_error("absolute value of q must be under 1");
+  }
+  if(abs(z).upper()>=2){
+    throw std::domain_error("1st modified q-Bessel function is not defined");
+  }
   interval<T>pi;
   i=complex<interval<T> >::i();
   pi=constants<interval<T> >::pi();
   res=exp(-i*nu*pi/2)*Jackson1(complex<interval<T> >(i*z),complex<interval<T> >(nu),interval<T> (q));
- return res;       
+  return res;       
 }
-
-
-template <class T> interval<T>Jackson2(const interval<T>& z,const interval<T>& nu,const interval<T>& q){
-// verification program for Jackson`s 2nd q-Bessel function
+  
+  template <class T> complex<interval<T> >modified_qBesselK1(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
+    // verification program for 1st modified q-Bessel K1, nu should not be an integer
+    complex<interval<T> >res;
+    if(abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    if(abs(z).upper()>=2){
+      throw std::domain_error("1st modified q-Bessel function is not defined");
+    }
+    interval<T>pi;
+    pi=constants<interval<T> >::pi();
+    res=pi*0.5/sin(pi*nu)*
+      (modified_qBesselI1(complex<interval<T> > (z), complex<interval<T> > (-nu), interval<T> (q))-modified_qBesselI1(complex<interval<T> > (z), complex<interval<T> > (nu), interval<T> (q)));
+    return res;  
+  }
+  template <class T> interval<T>Jackson2(const interval<T>& z,const interval<T>& nu,const interval<T>& q){
+    // verification program for Jackson`s 2nd q-Bessel function
   interval<T>res,a,b,c,series,pq;
 int j,K;
 T rad;
@@ -158,8 +172,8 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
   // H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
   // Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
   try{
-  res=pow(z/2,nu)*_1phi_1(complex<interval<T> >(-z*z/4),complex<interval<T> >(0),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T>(q));
-   }
+    res=pow(z/2,nu)*_1phi_1(complex<interval<T> >(-z*z/4),complex<interval<T> >(0),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T>(q));
+  }
   // alternative implementaion
   // reference
   // Y. Chen , M. E. Ismail, K. A. Muttalib. Asymptotics of basic Bessel functions and q-Laguerre polynomials, Lemma 2
@@ -181,9 +195,9 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0))+
 	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
-  }  
+	} 
   
-  if((abs(res)).upper()==std::numeric_limits<T>::infinity()){  
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()){  
     ub::vector< complex<interval<T> > > a(3);
     ub::vector< complex<interval<T> > > b(2);
     ub::vector< complex<interval<T> > > c(2);
@@ -200,7 +214,7 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0))+
 	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
-  }
+     }
 
   return res;       
 }
@@ -456,8 +470,8 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
     return res;
   }
 
-  template <class T> complex<interval<T> >modified_qBessel2(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
-    //verification program for 2nd modified q-Bessel function
+  template <class T> complex<interval<T> >modified_qBesselI2(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
+    //verification program for 2nd modified q-Bessel function I2
     complex<interval<T> >res,i;
     if(abs(q)>=1){
       throw std::domain_error("absolute value of q must be under 1");
