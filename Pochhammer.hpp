@@ -211,7 +211,6 @@ namespace kv{
       return res;   
     }
  */
- // else{
       // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
       // Zhang, 2008
       
@@ -219,7 +218,7 @@ namespace kv{
 	n=n+50;
       }
   rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
-  r=interval<T>(1-rad,1+rad);
+    r=complex_nbd(complex<interval<T> >(1.,0.),rad);
   res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
   return res;
   //   }
