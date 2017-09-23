@@ -50,9 +50,9 @@ namespace kv{
     h=log(4*d*N)/N;
     C3=1/pow(cos(pi*0.5*sin(d)),2)/cos(d);
     ImMax=sin(pi*sin(d))/(cos(pi*sin(d))+1);
-    K=pow((1+2*pow(q,n)*exp(ImMax)/(1-q))*qPochhammer(interval<T>(-exp(ImMax)),interval<T>(q),int(n)),2)
+    K=pow((1+2*pow(q,n)*exp(2*ImMax)/(1-q))*qPochhammer(interval<T>(-exp(2*ImMax)),interval<T>(q),int(n)),2)
       *pow((1+abs(z*pow(q,n+(nu+1)*0.5))*exp(ImMax)/(1-q))*qPochhammer(interval<T>(-0.5*abs(z*pow(q,(nu+1)*0.5))*exp(ImMax)),interval<T>(q),int(n)),2)
-      *pow((1+abs(pow(q,nu+n))*exp(ImMax)/(1-q))/qPochhammer(interval<T> (abs(pow(q,nu))*exp(-ImMax)),interval<T>(q),int(n)),2);
+      *pow((1+abs(pow(q,nu+n))*exp(2*ImMax)/(1-q))/qPochhammer(interval<T> (abs(pow(q,nu))*exp(-2*ImMax)),interval<T>(q),int(n)),2);
     rad=(2*K*pi*exp(-2*pi*d/h)*(exp(pi*0.5)+2*C3/(1-exp(-pi*e*0.5)))).upper();
     for(int k=-N;k<=N;k++){
       interval<T>psi;
