@@ -104,10 +104,10 @@ template <class T> interval<T> QHypergeom(const ub::vector<interval<T> >& a,cons
     
     else{
       for(int n=1;n<=N-1;n++){
-	mid=mid+qPochhammer(ub::vector<interval<T> >(a),interval<T>(q),int (n))*pow(z,n)
+	mid=mid+qPochhammer(ub::vector<interval<T> >(a),interval<T>(q),int (n))*std::pow(-1,1+s-r)*pow(q,n*(n-1)*0.5*(1+s-r))*pow(z,n)
 	  /qPochhammer(ub::vector<interval<T> >(b),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
       }
-      first=abs(qPochhammer(ub::vector<interval<T> >(a),interval<T>(q),int (N))*pow(z,N)
+      first=abs(qPochhammer(ub::vector<interval<T> >(a),interval<T>(q),int (N))*std::pow(-1,1+s-r)*pow(q,N*(N-1)*0.5*(1+s-r))*pow(z,N)
 		/qPochhammer(ub::vector<interval<T> >(b),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
       for(int k=0;k<=r-1;k++){
 	pro1=pro1*(1+abs(b(k)-a(k))*pow(q,N)/abs(1-b(k)*pow(q,N)));
@@ -147,7 +147,7 @@ return res;
     }
     if (q>=1){
       throw std::domain_error("value of q must be under 1");
-}
+    }
     if (q<=0){
       throw std::domain_error("q must be positive");
     }
@@ -193,10 +193,10 @@ return res;
       
       else{
 	for(int n=1;n<=N-1;n++){
-	  mid=mid+qPochhammer(ub::vector<complex<interval<T> > >(a),interval<T>(q),int (n))*pow(z,n)
+	  mid=mid+qPochhammer(ub::vector<complex<interval<T> > >(a),interval<T>(q),int (n))*std::pow(-1,1+s-r)*pow(q,n*(n-1)*0.5*(1+s-r))*pow(z,n)
 	    /qPochhammer(ub::vector<complex<interval<T> > >(b),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
 	}
-	first=abs(qPochhammer(ub::vector<complex<interval<T> > >(a),interval<T>(q),int (N))*pow(z,N)
+	first=abs(qPochhammer(ub::vector<complex<interval<T> > >(a),interval<T>(q),int (N))*std::pow(-1,1+s-r)*pow(q,N*(N-1)*0.5*(1+s-r))*pow(z,N)
 		  /qPochhammer(ub::vector<complex<interval<T> > >(b),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
 	for(int k=0;k<=r-1;k++){
 	  pro1=pro1*(1+abs(b(k)-a(k))*pow(q,N)/abs(1-b(k)*pow(q,N)));
@@ -217,7 +217,7 @@ return res;
     return res;
   }
   template <class T> complex<interval<T> >qAppell1(const complex<interval<T> >& a,const complex<interval<T> >& b,const complex<interval<T> >& bp,const complex<interval<T> >& c ,
-						     const interval<T>& q,complex<interval<T> >& x,const complex<interval<T> >& y){
+						     const interval<T>& q,const complex<interval<T> >& x,const complex<interval<T> >& y){
     // verification program for the first q-Appell function
     // reference:DLMF http://dlmf.nist.gov/17.11 formula 17.11.1
     complex<interval<T> >res;
@@ -235,7 +235,8 @@ return res;
     }
     if (abs(y).upper()>=1){
       throw std::domain_error("absolute value of y must be under 1");
-    }  
+    }
+
     res=infinite_qPochhammer(complex<interval<T> >(a),interval<T>(q))
       *infinite_qPochhammer(complex<interval<T> >(b*x),interval<T>(q))
       *infinite_qPochhammer(complex<interval<T> >(bp*y),interval<T>(q))
@@ -244,7 +245,8 @@ return res;
       /infinite_qPochhammer(complex<interval<T> >(y),interval<T>(q))
       *QHypergeom(ub::vector<complex<interval<T> > >(v1),ub::vector<complex<interval<T> > >(v2),interval<T>(q),complex<interval<T> >(a));
     return res;
-  }  
+  }
+
   template <class T> interval<T> infinite_qPochhammer(const ub::vector<interval<T> >& a,const interval<T>& q){
     interval<T> res,pro;
     int r;
@@ -301,7 +303,7 @@ return res;
       *QHypergeom(ub::vector<complex<interval<T> > >(v2),ub::vector<complex<interval<T> > >(v1),interval<T>(q),complex<interval<T> >(a));
     return res;
   }
-	 template <class T> complex<interval<T> >VWP(const complex<interval<T> >& a,const ub::vector<complex<interval<T> > >& b,const interval<T>& q,const complex<interval<T> >& x){
+  template <class T> complex<interval<T> >VWP(const complex<interval<T> >& a,const ub::vector<complex<interval<T> > >& b,const interval<T>& q,const complex<interval<T> >& x){
     // verification program for the very-well-poised q-hypergeometric function
     if (q>=1){
       throw std::domain_error("value of q must be under 1");
