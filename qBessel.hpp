@@ -171,8 +171,8 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
   // reference
   // H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, formula 3.2
   // Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
-  try{
-    res=pow(z/2,nu)*_1phi_1(complex<interval<T> >(-z*z/4),complex<interval<T> >(0),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T>(q));
+   try{
+  res=pow(z/2,nu)*_1phi_1(complex<interval<T> >(-z*z/4),complex<interval<T> >(0),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T>(q));
   }
   // alternative implementaion
   // reference
@@ -195,7 +195,7 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0))+
 	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
-	} 
+    	} 
   
     if((abs(res)).upper()==std::numeric_limits<T>::infinity()){  
     ub::vector< complex<interval<T> > > a(3);
@@ -215,8 +215,10 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
 	infinite_qPochhammer(complex<interval<T> >(c(1)),interval<T>(sqrt(q)))
 	*QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(c),interval<T>(sqrt(q)),complex<interval<T> >(sqrt(q),0)));
      }
+    //std::cout<<qPochhammer(complex<interval<T> >(pow(q,(nu+0.5)*0.5)),interval<T>(q),int(1000))
+    //*qPochhammer(complex<interval<T> >(-pow(q,(nu+0.5)*0.5)),interval<T>(q),int(1000))<<std::endl;
 
-  return res;       
+    return res;       
 }
   template <class TT> struct qBesselintegral_nu_int_real {
     TT x, q;
@@ -490,6 +492,26 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
       *_1phi_1(complex<interval<T> >(z*z/4),complex<interval<T> >(0.),interval<T>(q),complex<interval<T> >(pow(q,nu+1)));
     return res;       
   }
+ template <class T> interval<T> modified_qBesselI2(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
+    //verification program for 2nd modified q-Bessel function I2
+    interval<T> res;
+    if(abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    /*implementation by original definition
+      interval<T>pi;
+      i=complex<interval<T> >::i();
+      pi=constants<interval<T> >::pi();
+      res=exp(-i*nu*pi/2)*Jackson2(complex<interval<T> >(i*z),complex<interval<T> >(nu),interval<T> (q));
+    */
+    // alternative implementation
+    // reference
+    // Ismail, M. E., & Zhang, R. (2015). $ q $-Bessel Functions and Rogers-Ramanujan Type Identities.
+    // arXiv preprint arXiv:1508.06861.
+    res=pow(z/2,nu)/Euler(interval<T>(q))
+      *_1phi_1(interval<T> (z*z/4),interval<T> (0.),interval<T>(q),interval<T> (pow(q,nu+1)));
+    return res;       
+  }
   template <class T> interval<T> Hahn_Exton(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
     // verification program for Hahn-Exton q-Bessel function
     interval<T> res,pq;
@@ -524,6 +546,7 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
     res=pow(z,nu)*infinite_qPochhammer(complex<interval<T> >(z*z*q),interval<T>(q))*_1phi_1(complex<interval<T> >(0),complex<interval<T> >(z*z*q),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T> (q));
      return res;       
   }
+ 
   template <class T> complex<interval<T> >little(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
     // verification program for little q-Bessel function
     // reference
