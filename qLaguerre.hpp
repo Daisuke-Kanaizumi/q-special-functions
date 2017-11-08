@@ -57,5 +57,36 @@ res=infinite_qPochhammer(complex<interval<T> >(-x*pow(q,n+alpha+1)),interval<T> 
   }
 return res;
 }
+ template <class T> interval<T>  qLpoly(const interval<T> & x,const interval<T>& q,const int n,const interval<T> & alpha){
+interval<T> res,sum;
+if(n<=1000){
+sum=0.;
+for(int k=0;k<=n;k++){
+sum=sum+pow(q,alpha*k+k*k)*pow(-x,k)
+  /qPochhammer(q,q,k)/qPochhammer(q,q,n-k)/qPochhammer(pow(q,alpha+1),q,k);
+}
+sum=sum*qPochhammer(pow(q,alpha+1),q,n);
+res=sum;
+}
+ else{
+ub::vector<interval<T>  >a(1),b(2);
+a(0)=pow(q,alpha+n+1);
+b(0)=pow(q,alpha+1);
+b(1)=-x*pow(q,n+alpha+1);
+
+res=qPochhammer(pow(q,alpha+1),q,n)/qPochhammer(q,q,n)
+  *infinite_qPochhammer(interval<T> (-x*pow(q,alpha+n+1)),interval<T>(q))
+  *QHypergeom(ub::vector<interval<T>  >(a),ub::vector<interval<T>  >(b),interval<T>(q),interval<T> (-x*pow(q,alpha+1)));
+
+//std::cout<<QHypergeom(ub::vector<complex<interval<T> > >(a),ub::vector<complex<interval<T> > >(b),interval<T>(q),complex<interval<T> >(-x*pow(q,alpha+1)))<<std::endl;
+}
+if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
+res=infinite_qPochhammer(interval<T> (-x*pow(q,n+alpha+1)),interval<T> (q))
+  /infinite_qPochhammer(interval<T> (pow(q,n+alpha+1)),interval<T> (q))/qPochhammer(q,q,n)
+  *_1phi_1(interval<T> (-x),interval<T> (-x*pow(q,n+alpha+1)),interval<T>(q),interval<T> (pow(q,alpha+1)));
+  }
+return res;
+}
+
 }
 #endif
