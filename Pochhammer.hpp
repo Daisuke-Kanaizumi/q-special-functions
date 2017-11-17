@@ -533,5 +533,21 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       return res;
     }
     }
+	  template <class T> complex<interval<T> >qPochhammer(const complex<interval<T> >& z,const complex<interval<T> >& q,const int& n){
+    complex<interval<T> >res,qp;
+    int k;
+    qp=1.;
+    if(n==0){
+      res=1.;
+      return res;
+    }
+    else {
+      for(k=0;k<=n-1;k++){
+	qp*=1-z*pow(q,k);
+      }
+      res=qp;
+      return res;
+    }
+    }
 }
 #endif
