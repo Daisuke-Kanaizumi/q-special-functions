@@ -115,7 +115,7 @@ template <class T> interval<T> QHypergeom(const ub::vector<interval<T> >& a,cons
       for(int h=r;h<=s-1;h++){
 	pro2=pro2*pow(q,N*(1+s-r))/abs(1-b(h)*pow(q,N));
       }
-      ratio=abs(z)*pro1*pro2/abs(1-pow(q,N));
+      ratio=abs(z)*pro1*pro2/abs(1-pow(q,N+1));
       if(ratio<1){
 	rad=(first/(1-ratio)).upper();
 	res=mid+rad*interval<T>(-1.,1.);
@@ -204,7 +204,7 @@ return res;
 	for(int h=r;h<=s-1;h++){
 	  pro2=pro2*pow(q,N*(1+s-r))/abs(1-b(h)*pow(q,N));
 	}
-	ratio=abs(z)*pro1*pro2/abs(1-pow(q,N));
+	ratio=abs(z)*pro1*pro2/abs(1-pow(q,N+1));
 	if(ratio<1){
 	  rad=(first/(1-ratio)).upper();
 	  res=complex_nbd(mid,rad);
