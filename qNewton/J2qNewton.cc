@@ -19,5 +19,7 @@ int main()
   cout<<x<<endl;
   cout<<"value of J2"<<kv::Jackson2(itv(x),itv(nu),itv(q))<<endl;
   }
- 
+  cout<<"value of J2 inf"<<kv::Jackson2(itv(x.lower()),itv(nu),itv(q))<<endl;
+  cout<<"value of J2 sup"<<kv::Jackson2(itv(x.upper()),itv(nu),itv(q))<<endl;
+  cout<<"value of J2 mid"<<kv::Jackson2(itv(mid(x)),itv(nu),itv(q))<<endl;
 }
