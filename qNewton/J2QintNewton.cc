@@ -34,7 +34,9 @@ int main()
       /(kv::Jackson2(itv(x(i-1)),itv(nu),itv(q))-kv::Jackson2(itv(q*x(i-1)),itv(nu),itv(q)));
     cout<<x(i)<<endl;
     //cout<<i<<endl;
-    cout<<"value of J2"<<kv::Jackson2(itv(x(i)),itv(nu),itv(q))<<endl;
+    cout<<"value of J2 inf"<<kv::Jackson2(itv(x(i).lower()),itv(nu),itv(q))<<endl;
+    cout<<"value of J2 sup"<<kv::Jackson2(itv(x(i).upper()),itv(nu),itv(q))<<endl;
+    cout<<"value of J2 mid"<<kv::Jackson2(itv(mid(x(i))),itv(nu),itv(q))<<endl;
   }
  }
   // to be updated
