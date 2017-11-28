@@ -23,6 +23,8 @@ int main()
     x(i+1)=x(i)-kv::Jackson2(itv(x(i)),itv(nu),itv(q))*(x(i)-x(i-1))
       /(kv::Jackson2(itv(x(i)),itv(nu),itv(q))-kv::Jackson2(itv(x(i-1)),itv(nu),itv(q)));
   cout<<x(i+1)<<endl;
-  cout<<"value of J2"<<kv::Jackson2(itv(x(i+1)),itv(nu),itv(q))<<endl;
+  cout<<"value of J2 inf"<<kv::Jackson2(itv(x(i+1).lower()),itv(nu),itv(q))<<endl;
+  cout<<"value of J2 sup"<<kv::Jackson2(itv(x(i+1).upper()),itv(nu),itv(q))<<endl;
+  cout<<"value of J2 mid"<<kv::Jackson2(itv(mid(x(i+1))),itv(nu),itv(q))<<endl;
   }
 }
