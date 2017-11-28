@@ -30,7 +30,9 @@ int main()
       /(kv::Hahn_Exton(itv(x(i-1)),itv(nu),itv(q))-kv::Hahn_Exton(itv(q*x(i-1)),itv(nu),itv(q)));
     
     cout<<x(i)<<endl;
-    cout<<"value of HE"<<kv::Hahn_Exton(itv(x(i)),itv(nu),itv(q))<<endl;
+    cout<<"value of HE inf"<<kv::Hahn_Exton(itv(x(i).lower()),itv(nu),itv(q))<<endl;
+    cout<<"value of HE sup"<<kv::Hahn_Exton(itv(x(i).upper()),itv(nu),itv(q))<<endl;
+    cout<<"value of HE mid"<<kv::Hahn_Exton(itv(mid(x(i))),itv(nu),itv(q))<<endl;  
   }
  
 }
