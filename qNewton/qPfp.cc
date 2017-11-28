@@ -27,7 +27,9 @@ cout.precision(17);
      -pow(kv::Gatteschi_qp(itv(kv::Gatteschi_qp(itv(z), itv(q))), itv(q))-kv::Gatteschi_qp(itv(z), itv(q)),2.)
      /(kv::Gatteschi_qp(itv(kv::Gatteschi_qp(itv(z), itv(q))), itv(q))-2*kv::Gatteschi_qp(itv(z), itv(q))+z);
    cout<<z<<endl;
-   cout << "value of (z;q)-z:"<<kv::qPVer2(itv(z), itv(q))-z << "\n";
+   cout << "value of (z;q)-z:"<<kv::qPVer2(itv(z.lower()), itv(q))-z << "\n";
+   cout << "value of (z;q)-z:"<<kv::qPVer2(itv(z.upper()), itv(q))-z << "\n";
+   cout << "value of (z;q)-z:"<<kv::qPVer2(itv(mid(z)), itv(q))-z << "\n";
  }
 }
 // q=0.1~0.7,z=1.5
