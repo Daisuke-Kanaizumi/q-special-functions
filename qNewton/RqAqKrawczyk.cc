@@ -20,6 +20,8 @@ int main()
       +(1-xx*(kv::Ramanujan_qAiry(itv(q),itv(x))-kv::Ramanujan_qAiry(itv(q),itv(q*x))) 
 	/x/(kv::Ramanujan_qAiry(itv(q),itv(xx))-kv::Ramanujan_qAiry(itv(q),itv(q*xx))))*(x-xx);
   cout<<x<<endl;
-  cout<<"value of RqA"<<kv::Ramanujan_qAiry(itv(q),itv(x))<<endl;
+  cout<<"value of RqA inf"<<kv::Ramanujan_qAiry(itv(q),itv(x.lower()))<<endl;
+  cout<<"value of RqA sup"<<kv::Ramanujan_qAiry(itv(q),itv(x.upper()))<<endl;
+  cout<<"value of RqA mid"<<kv::Ramanujan_qAiry(itv(q),itv(mid(x)))<<endl;
   }
 }
