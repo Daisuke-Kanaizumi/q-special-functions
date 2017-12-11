@@ -78,6 +78,24 @@ namespace kv{
     }
     return res;
 }
-
+  template <class T> interval<T> qPlarge(const interval<T> & z,const interval<T>& q, int n=5000){
+    interval<T> res,qpn;
+    // Ismail, M. E., & Zhang, R. (2006). Chaotic and periodic asymptotics for q-orthogonal polynomials. International Mathematics Research Notices, 2006.
+    // z must be positive
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("value of q must be positive");
+    }
+    if (z<=0){
+      throw std::domain_error("value of z must be positive");
+    }
+    T rad;
+    qpn=qPochhammer(z,q,n);
+    rad=(infinite_qPochhammer(interval<T>(-z*q*q),interval<T>(q))*z*pow(q,n)/(1-q)).upper();
+    res=qpn*(1+rad*interval<T>(-1.,1.));
+    return res;
+  }
 }
 #endif
