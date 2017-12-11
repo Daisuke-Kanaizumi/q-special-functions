@@ -360,6 +360,16 @@ template <class T> complex<interval<T> >Ramanujan_qAiry(const interval<T>& q, co
        }
    return res;
 }
+template <class T> complex<interval<T> >Ramanujan_qAiry_Morita(const interval<T>& q, const complex<interval<T> >& z) {
+    // Morita, T. (2011). A connection formula between the Ramanujan function and the $ q $-Airy function. arXiv preprint arXiv:1104.0755.
+    complex<interval<T> >res,i,x;
+    i=complex<interval<T> >::i(); 
+    x=i*pow(q,0.75)/sqrt(z);
+    res=(infinite_qPochhammer(complex<interval<T> >(-x/sqrt(q)),interval<T>(sqrt(q)))*infinite_qPochhammer(complex<interval<T> >(-q/x),interval<T>(sqrt(q)))*HKW_qAiry(interval<T>(sqrt(q)),complex<interval<T> >(-x))
+	  +infinite_qPochhammer(complex<interval<T> >(x/sqrt(q)),interval<T>(sqrt(q)))*infinite_qPochhammer(complex<interval<T> >(q/x),interval<T>(sqrt(q)))*HKW_qAiry(interval<T>(sqrt(q)),complex<interval<T> >(x)))
+      /infinite_qPochhammer(interval<T>(-1.),interval<T>(sqrt(q)));
+    return res;
+  }
 
   /*
   template <class T> complex<interval<T> >Ramanujan_qAiry_ae(const interval<T>& q, const complex<interval<T> >& Z) {
