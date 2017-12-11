@@ -11,6 +11,8 @@
 #include <kv/interval.hpp>
 #include <kv/rdouble.hpp>
 #include <kv/constants.hpp>
+#include <kv/Pochhammer.hpp>
+#include <kv/qBessel.hpp>
 #include <cmath>
 #include <limits>
 #include <kv/convert.hpp> // this was included to use complex numbers
@@ -50,104 +52,106 @@ template <class T> interval<T> _1phi_1(const interval<T>& a, const interval<T>& 
       // Reference
       // Koekoek-Swarttouw,The Askey-scheme of hypergeometric orthogonal polynomials and its q-analogue, arXiv (1996)
       // formula 0.6.12 and 0.6.13
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a)<1&&abs(a)>0){
-      res=infinite_qPochhammer(interval<T>(a),interval<T>(q))*infinite_qPochhammer(interval<T>(z),interval<T>(q))*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(z),interval<T>(q),interval<T>(a))/infinite_qPochhammer(interval<T>(c),interval<T>(q));
- }
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
-res=infinite_qPochhammer(interval<T>(a*z/c),interval<T>(q))*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(c),interval<T>(q),interval<T>(a*z/c));
-    }
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&a<1&&a>=0&&c>=0&&c<1){
+        if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a)<1&&abs(a)>0){
+      res=infinite_qPochhammer(interval<T>(a),interval<T>(q))*infinite_qPochhammer(interval<T>(z),interval<T>(q))
+	*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(z),interval<T>(q),interval<T>(a))/infinite_qPochhammer(interval<T>(c),interval<T>(q));
+	}
+	if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
+	  res=infinite_qPochhammer(interval<T>(a*z/c),interval<T>(q))*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(c),interval<T>(q),interval<T>(a*z/c));
+	}
+	if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&a<1&&a>=0&&c>=0&&c<1){
   // Alternative implementation
   // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
   // Zhang, 2008, Advances in Mathematics
-  int nn,mu;
-  nn=10;
-  mu=std::floor(nn/2);
-  interval<T>r,amid;
-
-  T arad;
-  arad=(32*Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(-q*pow(q,-nn)/abs(z)),interval<T>(q))
-	*infinite_qPochhammer(interval<T>(-q*pow(q,nn)*abs(z)),interval<T>(q))
-	/infinite_qPochhammer(interval<T>(a),interval<T>(q))
-	*(pow(q,mu+1)/(1-q)+pow(q,mu*mu/2+mu/2)/pow(abs(z*pow(q,nn)),mu))).upper();
-  amid=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(q*pow(q,-nn)/abs(z)),interval<T>(q))
-    *infinite_qPochhammer(interval<T>(q*pow(q,nn)*abs(z)),interval<T>(q));
-  r=interval<T>(amid.lower()-arad,amid.upper()+arad);
-  res=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(c),interval<T>(q))*pow(-z*pow(q,nn),nn)*r
-    /infinite_qPochhammer(interval<T>(a),interval<T>(q))/pow(q,nn*(nn+1)/2);
-   }  
- return res;
+	  int nn,mu;
+	  nn=5; 
+	  mu=std::floor(nn/2);
+	  interval<T>r,amid;
+	  
+	  T arad;
+	  arad=(32*Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(-q*pow(q,-nn)/abs(z)),interval<T>(q))
+		*infinite_qPochhammer(interval<T>(-q*pow(q,nn)*abs(z)),interval<T>(q))
+		/infinite_qPochhammer(interval<T>(a),interval<T>(q))
+		*(pow(q,mu+1)/(1-q)+pow(q,mu*mu/2+mu/2)/pow(abs(z*pow(q,nn)),mu))).upper();
+	  amid=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(q*pow(q,-nn)/abs(z)),interval<T>(q))
+	    *infinite_qPochhammer(interval<T>(q*pow(q,nn)*abs(z)),interval<T>(q));
+	  r=interval<T>(amid.lower()-arad,amid.upper()+arad);
+	  res=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(c),interval<T>(q))*pow(-z*pow(q,nn),nn)*r
+	    /infinite_qPochhammer(interval<T>(a),interval<T>(q))/pow(q,nn*(nn+1)/2);
+	}  
+	return res;
     }
     else{
       throw std::domain_error("ratio is more than 1");
     } 
-
- }
+    
+}
   template <class T> complex<interval<T> >_1phi_1(const complex<interval<T> >& a, const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
      int N;
-    N=1000;
-  while(abs(c)>pow(1/q,N)){
-     N=N+500;
-     //throw std::domain_error("value of N not large enough");
-    }
-   if (q>=1){
-     throw std::domain_error("value of q must be under 1");
-   }
-   if (q<=0){
-     throw std::domain_error("q must be positive");
-   }
-    complex<interval<T> > mid,res;
-    interval<T>ratio,first;
-    T rad;
-    mid=1.;
-    for(int n=1;n<=N-1;n++){
-      mid=mid+qPochhammer(complex<interval<T> >(a),interval<T>(q) ,int (n))*pow(-z,n)*pow(q,n*(n-1)/2)
-	/qPochhammer(complex<interval<T> >(c),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
-    }
-    first=abs(qPochhammer(complex<interval<T> >(a),interval<T>(q),int (N))*pow(-z,N)*pow(q,N*(N-1)/2)
-	      /qPochhammer(complex<interval<T> >(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
-    ratio=abs(z)*pow(q,N)*(1+abs(pow(q,N)*(c-a)/(1-c*pow(q,N))))*abs(1/(1-pow(q,N+1)));
-    if(abs(ratio)<1){
-      rad=(first/(1-ratio)).upper();
-      res=complex_nbd(mid,rad);
-      // Alternative implementation
-      // Reference
-      // Koekoek-Swarttouw,The Askey-scheme of hypergeometric orthogonal polynomials and its q-analogue, arXiv (1996)
-      // formula 0.6.12 and 0.6.13
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a)<1&&abs(a)>0){
-      res=infinite_qPochhammer(complex<interval<T> >(a),interval<T> (q))*infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))*Heine(complex<interval<T> >(c/a),complex<interval<T> >(0.),complex<interval<T> >(z),interval<T>(q),complex<interval<T> >(a))/infinite_qPochhammer(complex<interval<T> >(c),interval<T>(q));
- }
-    if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
-      res=infinite_qPochhammer(complex<interval<T> >(a*z/c),interval<T>(q))*Heine(complex<interval<T> >(c/a),complex<interval<T> >(0.),complex<interval<T> >(c),interval<T>(q),complex<interval<T> >(a*z/c));
-    }
+     N=1000;
+     while(abs(c)>pow(1/q,N)){
+       N=N+500;
+       //throw std::domain_error("value of N not large enough");
+     }
+     if (q>=1){
+       throw std::domain_error("value of q must be under 1");
+     }
+     if (q<=0){
+       throw std::domain_error("q must be positive");
+     }
+     complex<interval<T> > mid,res;
+     interval<T>ratio,first;
+     T rad;
+     mid=1.;
+     for(int n=1;n<=N-1;n++){
+       mid=mid+qPochhammer(complex<interval<T> >(a),interval<T>(q) ,int (n))*pow(-z,n)*pow(q,n*(n-1)/2)
+	 /qPochhammer(complex<interval<T> >(c),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
+     }
+     first=abs(qPochhammer(complex<interval<T> >(a),interval<T>(q),int (N))*pow(-z,N)*pow(q,N*(N-1)/2)
+	       /qPochhammer(complex<interval<T> >(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
+     ratio=abs(z)*pow(q,N)*(1+abs(pow(q,N)*(c-a)/(1-c*pow(q,N))))*abs(1/(1-pow(q,N+1)));
+     if(abs(ratio)<1){
+       rad=(first/(1-ratio)).upper();
+       res=complex_nbd(mid,rad);
+       // Alternative implementation
+       // Reference
+       // Koekoek-Swarttouw,The Askey-scheme of hypergeometric orthogonal polynomials and its q-analogue, arXiv (1996)
+       // formula 0.6.12 and 0.6.13
+       if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a)<1&&abs(a)>0){
+	 res=infinite_qPochhammer(complex<interval<T> >(a),interval<T> (q))*infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))
+	   *Heine(complex<interval<T> >(c/a),complex<interval<T> >(0.),complex<interval<T> >(z),interval<T>(q),complex<interval<T> >(a))/infinite_qPochhammer(complex<interval<T> >(c),interval<T>(q));
+       }
+       if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
+	 res=infinite_qPochhammer(complex<interval<T> >(a*z/c),interval<T>(q))*Heine(complex<interval<T> >(c/a),complex<interval<T> >(0.),complex<interval<T> >(c),interval<T>(q),complex<interval<T> >(a*z/c));
+       }
       return res;
-    }
-    else{
-      throw std::domain_error("ratio is more than 1");
-    } }
-
+     }
+     else{
+       throw std::domain_error("ratio is more than 1");
+     } }
+  
   // calculate basic hypergeometric series 0phi1
   
   // reference
   // Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
-
-
-template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q, const interval<T> & z) {
+  
+  
+  template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q, const interval<T> & z) {
     int N;
-    N=100;
+    N=1000;
     interval<T> mid,res,ratio,first;
     T rad;
-  while(abs(c)>pow(1/q,N)){
-     N=N+500;
-     //throw std::domain_error("value of N not large enough");
+    while(abs(c)>pow(1/q,N)){
+      N=N+500;
+      //throw std::domain_error("value of N not large enough");
     }
-   if (q>=1){
-     throw std::domain_error("value of q must be under 1");
-   }
-   if (q<=0){
-     throw std::domain_error("q must be positive");
-   }
-   mid=1.;
+    if (q>=1){
+      throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("q must be positive");
+    }
+    mid=1.;
     for(int n=1;n<=N-1;n++){
       mid=mid+pow(z,n)*pow(q,n*(n-1))
 	/qPochhammer(interval<T>(c),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
@@ -178,15 +182,15 @@ template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q
 	interval<T>r,amid;
 	
 	T arad;
-  arad=(16*Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(-q*pow(q,-nn)/abs(z)),interval<T>(q))
-	*infinite_qPochhammer(interval<T>(-q*pow(q,nn)*abs(z)),interval<T>(q))
-	*(pow(q,mu+1)/(1-q)+pow(q,mu*mu/2+mu/2)/pow(abs(z*pow(q,nn)),mu))).upper();
-  amid=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(q*pow(q,-nn)/abs(z)),interval<T>(q))
-    *infinite_qPochhammer(interval<T>(q*pow(q,nn)*abs(z)),interval<T>(q));
-  r=interval<T>(amid.lower()-arad,amid.upper()+arad);
-  res=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(c),interval<T>(q))
-    *pow(-z*pow(q,nn),nn)*r/pow(q,nn*(nn+1)/2);
-   }  
+	arad=(16*Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(-q*pow(q,-nn)/abs(z)),interval<T>(q))
+	      *infinite_qPochhammer(interval<T>(-q*pow(q,nn)*abs(z)),interval<T>(q))
+	      *(pow(q,mu+1)/(1-q)+pow(q,mu*mu/2+mu/2)/pow(abs(z*pow(q,nn)),mu))).upper();
+	amid=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(q*pow(q,-nn)/abs(z)),interval<T>(q))
+	  *infinite_qPochhammer(interval<T>(q*pow(q,nn)*abs(z)),interval<T>(q));
+	r=interval<T>(amid.lower()-arad,amid.upper()+arad);
+	res=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(c),interval<T>(q))
+	  *pow(-z*pow(q,nn),nn)*r/pow(q,nn*(nn+1)/2);
+      }  
       return res;
     }
     else{
@@ -194,8 +198,8 @@ template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q
     } 
  }
   template <class T> complex<interval<T> >_0phi_1(const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
-     int N;
-    N=4000;
+    int N;
+    N=1000;
     complex<interval<T> > mid,res;
     interval<T>ratio,first;
     T rad;
@@ -269,7 +273,9 @@ template <class T> interval<T> _0phi_1(const interval<T>& c,const interval<T>& q
      // T. H. Koornwinder and R. F. Swarttouw, On $q$-analogues of the Fourier and Hankel transforms
      // Transactions of the American Mathematical Society, 333 (1992), 445-461
      // symmetry relation is used
-     res=infinite_qPochhammer(complex<interval<T> >(-z*pow(qq,0.5)),interval<T> (q))*_1phi_1(complex<interval<T> >(0),complex<interval<T> >(-z*pow(qq,0.5)),interval<T>(q),complex<interval<T> >(-qq))/infinite_qPochhammer(interval<T>(-q),interval<T>(q));
+     res=infinite_qPochhammer(complex<interval<T> >(-z*pow(qq,0.5)),interval<T> (q))
+       *_1phi_1(complex<interval<T> >(0),complex<interval<T> >(-z*pow(qq,0.5)),interval<T>(q),complex<interval<T> >(-qq))
+       /infinite_qPochhammer(interval<T>(-q),interval<T>(q));
    }
     return res;
  }
@@ -302,6 +308,7 @@ template <class T> interval<T> Ramanujan_qAiry(const interval<T>& q, const inter
   else{
    res=_0phi_1(interval<T> (0),interval<T>(q),interval<T> (-q*z));
   }
+
   if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
     // implementation to avoid numerical divergence
     // reference
@@ -323,10 +330,19 @@ template <class T> interval<T> Ramanujan_qAiry(const interval<T>& q, const inter
  }
 template <class T> complex<interval<T> >Ramanujan_qAiry(const interval<T>& q, const complex<interval<T> >& z) {
   // calculate Ramanujan`s q-Airy function
-  complex<interval<T> >res,qq;
+  complex<interval<T> >res,qq,i;
    qq=q;
-   res=_0phi_1(complex<interval<T> >(0),interval<T>(q),complex<interval<T> >(-qq*z));
- if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
+    res=_0phi_1(complex<interval<T> >(0),interval<T>(q),complex<interval<T> >(-qq*z));
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
+     // implementation to avoid numerical divergence
+     // reference
+     // Mourad E. H. Ismail, Ruiming Zhang - Proceedings of the American Mathematical Society, 2017
+     // Integral and series representations of $q$-polynomials and functions: Part II Schur polynomials and the Rogers-Ramanujan identities
+     i=complex<interval<T> >::i(); 
+     res=infinite_qPochhammer(complex<interval<T> >(-i*sqrt(z)*pow(q,0.25)),interval<T>(sqrt(q)))
+       *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(-i*sqrt(z)*pow(q,0.25)),interval<T>(sqrt(q)),complex<interval<T> >(i*sqrt(z)*pow(q,0.25)));
+      }
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
    // implementation to avoid numerical divergence
    // reference
    // Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Theorem 3.1
@@ -336,14 +352,34 @@ template <class T> complex<interval<T> >Ramanujan_qAiry(const interval<T>& q, co
    // By using the following identities, the proof will be completed.
    // Gasper and Rahman, Basic Hypergeometric Series, Cambridge University Press, 1990, Appendix I, (I.2), (I.5), (I.17), (I.25)
    // Weisstein, Eric W. "q-Pochhammer Symbol." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/q-PochhammerSymbol.html, formula (10)     
-   res=(infinite_qPochhammer(complex<interval<T> >(qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(qq/z),interval<T>(q*q))
-	*_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq),interval<T>(q*q),complex<interval<T> >(pow(qq,2)/z))-
-	q*infinite_qPochhammer(complex<interval<T> >(qq*qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(1/z),interval<T>(q*q))/(1-q)
-	*_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq*qq*qq),interval<T>(q*q),complex<interval<T> >(pow(qq,3)/z)))
-      /infinite_qPochhammer(interval<T>(q),interval<T>(q*q));
-  }
+     res=(infinite_qPochhammer(complex<interval<T> >(qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(qq/z),interval<T>(q*q))
+	  *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq),interval<T>(q*q),complex<interval<T> >(pow(qq,2)/z))-
+	  q*infinite_qPochhammer(complex<interval<T> >(qq*qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(1/z),interval<T>(q*q))/(1-q)
+	  *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq*qq*qq),interval<T>(q*q),complex<interval<T> >(pow(qq,3)/z)))
+       /infinite_qPochhammer(interval<T>(q),interval<T>(q*q));
+       }
    return res;
- }
+}
+
+  /*
+  template <class T> complex<interval<T> >Ramanujan_qAiry_ae(const interval<T>& q, const complex<interval<T> >& Z) {
+    // calculate Ramanujan`s q-Airy function with asymptotic formula
+    // reference
+    // Ismail, M. E., & Zhang, R. (2016).
+    // Integral and Series Representations of $ q $-Polynomials and Functions: Part I.
+    // arXiv preprint arXiv:1604.08441.
+    complex<interval<T> >res,z,nbd;
+    int n;
+    n=10;
+    
+    z=Z*pow(q,2*n);
+    
+    res=pow(q,-n*n)*pow(-z,n)/Euler(interval<T>(q))*Euler(interval<T>(q*q))
+      *infinite_qPochhammer(complex<interval<T> >(q*z),interval<T>(q*q))
+      *infinite_qPochhammer(complex<interval<T> >(q/z),interval<T>(q*q));
+    return res;
+  }
+  */
   template <class T> interval<T> IKMMS_qAiry(const interval<T>& q, const interval<T>& tau){
     // calculate Isojima-Konno-Mimura-Murata-Satsuma q-Airy function
     // reference
