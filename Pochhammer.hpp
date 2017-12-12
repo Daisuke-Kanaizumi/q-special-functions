@@ -436,7 +436,17 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
    if (q>=1){
      throw std::domain_error("value of q must be under 1");
    }
-   if (q<=0){
+  template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
+    // Zhang C. (2005) Remarks on Some Basic Hypergeometric Series. 
+    // In: Ismail M.E., Koelink E. (eds) Theory and Applications of Special Functions. Developments in Mathematics, vol 13. Springer, Boston, MA
+    complex<interval<T> >res;
+    res=infinite_qPochhammer(interval<T>(q),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(q/z),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(b),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(b/z),interval<T>(q));
+    return res;
+  }   if (q<=0){
      throw std::domain_error("q must be positive");
    }
     if (abs(z)>=1){
@@ -501,6 +511,17 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       throw std::domain_error("Ramanujan psi sum cannot be calculated");
     }
 }
+template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
+    // Zhang C. (2005) Remarks on Some Basic Hypergeometric Series. 
+    // In: Ismail M.E., Koelink E. (eds) Theory and Applications of Special Functions. Developments in Mathematics, vol 13. Springer, Boston, MA
+    complex<interval<T> >res;
+    res=infinite_qPochhammer(interval<T>(q),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(q/z),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(b),interval<T>(q))
+      /infinite_qPochhammer(complex<interval<T> >(b/z),interval<T>(q));
+    return res;
+  }
   template <class T> interval<T> qPochhammer(const interval<T>& z,const interval<T>& q,const int& n){
     interval<T>res,qp;
     int k;
