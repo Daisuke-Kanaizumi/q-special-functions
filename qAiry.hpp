@@ -1,7 +1,7 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
 // Email: daisuke15@asagi.waseda.jp
-// Date: May 9th, 2017
+// Date: Dec 19th, 2017
 
 // verification program for q-Airy functions
 
@@ -17,6 +17,9 @@
 #include <limits>
 #include <kv/convert.hpp> // this was included to use complex numbers
 #include <kv/complex.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
+namespace ub = boost::numeric::ublas;
 namespace kv {
 
   // calculate basic hypergeometric series 1phi1
@@ -41,6 +44,65 @@ template <class T> interval<T> _1phi_1(const interval<T>& a, const interval<T>& 
     for(int n=1;n<=N-1;n++){
       mid=mid+qPochhammer(interval<T>(a),interval<T>(q),int (n))*pow(-z,n)*pow(q,n*(n-1)/2)
 	/qPochhammer(interval<T>(c),interval<T>(q),int (n))/qPochhammer(interval<T>(q),interval<T>(q),int (n));
+    }
+    first=abs(qPochhammer(interval<T>(a),interval<T>(q),int (N))*pow(-z,N)*pow(q,N*(N-1)/2)
+	      /qPochhammer(interval<T>(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
+    ratio=abs(z)*abs(pow(q,N))*(1+abs(pow(q,N)*(c-a)/(1-c*pow(q,N))))*abs(1/(1-pow(q,N+1)));
+    if(ratio<1){
+      rad=(first/(1-ratio)).upper();
+      res=mid+rad*interval<T>(-1.,1.);
+      // Alternative implementation
+      // Reference
+      // Koekoek-Swarttouw,The Askey-scheme of hypergeometric orthogonal polynomials and its q-analogue, arXiv (1996)
+      // formula 0.6.12 and 0.6.13
+        if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a)<1&&abs(a)>0){
+      res=infinite_qPochhammer(interval<T>(a),interval<T>(q))*infinite_qPochhammer(interval<T>(z),interval<T>(q))
+	*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(z),interval<T>(q),interval<T>(a))/infinite_qPochhammer(interval<T>(c),interval<T>(q));
+	}
+	if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&abs(a*z/c)<1&&abs(a)>0){
+	  res=infinite_qPochhammer(interval<T>(a*z/c),interval<T>(q))*Heine(interval<T>(c/a),interval<T>(0.),interval<T>(c),interval<T>(q),interval<T>(a*z/c));
+	}
+
+	return res;
+    }
+    else{
+      throw std::domain_error("ratio is more than 1");
+    } 
+    
+}template <class T> interval<T> _1phi_1_bs(const interval<T>& a, const interval<T>& c,const interval<T>& q, const interval<T> & z) {
+  int N,nn;
+  nn=10;
+  N=std::pow(2,nn);
+  interval<T> mid,rad,res,ratio,first;
+  mid=0.;
+
+  
+    while(abs(c)>pow(1/q,N)){
+     nn=nn+5;
+     N=std::pow(2,nn);
+     //throw std::domain_error("value of N not large enough");
+    } 
+    ub::vector<interval<T> >A(N),B(N),C(N);
+    for(int i=0;i<=N/2-1;i++){
+      A(i)=pow(-z,i)*pow(q,i*(i-1)*0.5)/qPochhammer(interval<T>(q),interval<T>(q),int (i));
+    }
+    if (q>=1){
+     throw std::domain_error("value of q must be under 1");
+    }
+    if (q<=0){
+      throw std::domain_error("q must be positive");
+    }
+    for(int n=1;n<=N/2-1;n++){
+      B(0)=qPochhammer(interval<T>(a),interval<T>(q),int (n));
+      C(0)=qPochhammer(interval<T>(c),interval<T>(q),int (n));
+      for(int j=1;j<=N/2-1;j++){
+	B(j)=1.;
+      }
+      for(int k=1;k<=N/2-1;k++){
+	C(k)=1.;
+      }
+      mid=mid+B(0)/C(0)*(A(2*n)*C(2*n+1)+B(2*n)*A(2*n+1));
+	
     }
     first=abs(qPochhammer(interval<T>(a),interval<T>(q),int (N))*pow(-z,N)*pow(q,N*(N-1)/2)
 	      /qPochhammer(interval<T>(c),interval<T>(q),int (N))/qPochhammer(interval<T>(q),interval<T>(q),int (N)));
@@ -172,25 +234,7 @@ template <class T> interval<T> _1phi_1(const interval<T>& a, const interval<T>& 
 	res=_1phi_1(interval<T>(z/c),interval<T>(0.),interval<T>(q),interval<T>(c))
 	  /infinite_qPochhammer(interval<T>(c),interval<T>(q));
       }
-      if((abs(res)).upper()==std::numeric_limits<T>::infinity()&&c>=0&&c<1){
-	// Alternative implementation
-	// Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
-	// Zhang, 2008, Advances in Mathematics
-	int nn,mu;
-	nn=10;
-	mu=std::floor(nn/2);
-	interval<T>r,amid;
-	
-	T arad;
-	arad=(16*Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(-q*pow(q,-nn)/abs(z)),interval<T>(q))
-	      *infinite_qPochhammer(interval<T>(-q*pow(q,nn)*abs(z)),interval<T>(q))
-	      *(pow(q,mu+1)/(1-q)+pow(q,mu*mu/2+mu/2)/pow(abs(z*pow(q,nn)),mu))).upper();
-	amid=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(q*pow(q,-nn)/abs(z)),interval<T>(q))
-	  *infinite_qPochhammer(interval<T>(q*pow(q,nn)*abs(z)),interval<T>(q));
-	r=interval<T>(amid.lower()-arad,amid.upper()+arad);
-	res=Euler(interval<T>(q))*infinite_qPochhammer(interval<T>(c),interval<T>(q))
-	  *pow(-z*pow(q,nn),nn)*r/pow(q,nn*(nn+1)/2);
-      }  
+    
       return res;
     }
     else{
@@ -328,39 +372,40 @@ template <class T> interval<T> Ramanujan_qAiry(const interval<T>& q, const inter
   }
    return res;
  }
-template <class T> complex<interval<T> >Ramanujan_qAiry(const interval<T>& q, const complex<interval<T> >& z) {
-  // calculate Ramanujan`s q-Airy function
-  complex<interval<T> >res,qq,i;
-   qq=q;
+  template <class T> complex<interval<T> >Ramanujan_qAiry(const interval<T>& q, const complex<interval<T> >& z) {
+    // calculate Ramanujan`s q-Airy function
+    complex<interval<T> >res,qq,i;
+    qq=q;
     res=_0phi_1(complex<interval<T> >(0),interval<T>(q),complex<interval<T> >(-qq*z));
     if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
-     // implementation to avoid numerical divergence
-     // reference
-     // Mourad E. H. Ismail, Ruiming Zhang - Proceedings of the American Mathematical Society, 2017
-     // Integral and series representations of $q$-polynomials and functions: Part II Schur polynomials and the Rogers-Ramanujan identities
+      // implementation to avoid numerical divergence
+      // reference
+      // Mourad E. H. Ismail, Ruiming Zhang - Proceedings of the American Mathematical Society, 2017
+      // Integral and series representations of $q$-polynomials and functions: Part II Schur polynomials and the Rogers-Ramanujan identities
      i=complex<interval<T> >::i(); 
      res=infinite_qPochhammer(complex<interval<T> >(-i*sqrt(z)*pow(q,0.25)),interval<T>(sqrt(q)))
        *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(-i*sqrt(z)*pow(q,0.25)),interval<T>(sqrt(q)),complex<interval<T> >(i*sqrt(z)*pow(q,0.25)));
-      }
+    }
     if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
-   // implementation to avoid numerical divergence
-   // reference
-   // Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Theorem 3.1
-   // Advances in Mathematics 209 (2007) 363–380
-   
-   // In this paper, the proof of theorem 3.1 is partially abbreviated.
-   // By using the following identities, the proof will be completed.
-   // Gasper and Rahman, Basic Hypergeometric Series, Cambridge University Press, 1990, Appendix I, (I.2), (I.5), (I.17), (I.25)
-   // Weisstein, Eric W. "q-Pochhammer Symbol." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/q-PochhammerSymbol.html, formula (10)     
-     res=(infinite_qPochhammer(complex<interval<T> >(qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(qq/z),interval<T>(q*q))
-	  *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq),interval<T>(q*q),complex<interval<T> >(pow(qq,2)/z))-
-	  q*infinite_qPochhammer(complex<interval<T> >(qq*qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(1/z),interval<T>(q*q))/(1-q)
-	  *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq*qq*qq),interval<T>(q*q),complex<interval<T> >(pow(qq,3)/z)))
-       /infinite_qPochhammer(interval<T>(q),interval<T>(q*q));
+      // implementation to avoid numerical divergence
+      // reference
+      // Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Theorem 3.1
+      // Advances in Mathematics 209 (2007) 363–380
+      
+      // In this paper, the proof of theorem 3.1 is partially abbreviated.
+      // By using the following identities, the proof will be completed.
+      // Gasper and Rahman, Basic Hypergeometric Series, Cambridge University Press, 1990, Appendix I, (I.2), (I.5), (I.17), (I.25)
+      // Weisstein, Eric W. "q-Pochhammer Symbol." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/q-PochhammerSymbol.html, formula (10)     
+      res=(infinite_qPochhammer(complex<interval<T> >(qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(qq/z),interval<T>(q*q))
+	   *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq),interval<T>(q*q),complex<interval<T> >(pow(qq,2)/z))-
+	   q*infinite_qPochhammer(complex<interval<T> >(qq*qq*z),interval<T>(q*q))*infinite_qPochhammer(complex<interval<T> >(1/z),interval<T>(q*q))/(1-q)
+	   *_1phi_1(complex<interval<T> >(0.),complex<interval<T> >(qq*qq*qq),interval<T>(q*q),complex<interval<T> >(pow(qq,3)/z)))
+	/infinite_qPochhammer(interval<T>(q),interval<T>(q*q));
        }
-   return res;
-}
-template <class T> complex<interval<T> >Ramanujan_qAiry_Morita(const interval<T>& q, const complex<interval<T> >& z) {
+    return res;
+  }
+
+  template <class T> complex<interval<T> >Ramanujan_qAiry_Morita(const interval<T>& q, const complex<interval<T> >& z) {
     // Morita, T. (2011). A connection formula between the Ramanujan function and the $ q $-Airy function. arXiv preprint arXiv:1104.0755.
     complex<interval<T> >res,i,x;
     i=complex<interval<T> >::i(); 
@@ -370,7 +415,14 @@ template <class T> complex<interval<T> >Ramanujan_qAiry_Morita(const interval<T>
       /infinite_qPochhammer(interval<T>(-1.),interval<T>(sqrt(q)));
     return res;
   }
-
+  template <class T> complex<interval<T> >Ramanujan_qAiry_mqB(const interval<T>& q, const complex<interval<T> >& z) {
+    complex<interval<T> >res;
+    res=sqrt(q*z)/(1+q+q*q)
+      *(modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(-1/3.,0.),interval<T>(pow(q,1/3.)))-
+	modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(1/3.,0),interval<T>(pow(q,1/3.))));
+    return res; 
+    // to be updated
+  }
   /*
   template <class T> complex<interval<T> >Ramanujan_qAiry_ae(const interval<T>& q, const complex<interval<T> >& Z) {
     // calculate Ramanujan`s q-Airy function with asymptotic formula
