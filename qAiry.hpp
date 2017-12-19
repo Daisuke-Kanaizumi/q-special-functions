@@ -415,14 +415,7 @@ template <class T> interval<T> Ramanujan_qAiry(const interval<T>& q, const inter
       /infinite_qPochhammer(interval<T>(-1.),interval<T>(sqrt(q)));
     return res;
   }
-  template <class T> complex<interval<T> >Ramanujan_qAiry_mqB(const interval<T>& q, const complex<interval<T> >& z) {
-    complex<interval<T> >res;
-    res=sqrt(q*z)/(1+q+q*q)
-      *(modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(-1/3.,0.),interval<T>(pow(q,1/3.)))-
-	modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(1/3.,0),interval<T>(pow(q,1/3.))));
-    return res; 
-    // to be updated
-  }
+
   /*
   template <class T> complex<interval<T> >Ramanujan_qAiry_ae(const interval<T>& q, const complex<interval<T> >& Z) {
     // calculate Ramanujan`s q-Airy function with asymptotic formula
