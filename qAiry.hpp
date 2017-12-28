@@ -1,7 +1,7 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
 // Email: daisuke15@asagi.waseda.jp
-// Date: Dec 19th, 2017
+// Date: Dec 28th, 2017
 
 // verification program for q-Airy functions
 
@@ -190,8 +190,30 @@ template <class T> interval<T> _1phi_1(const interval<T>& a, const interval<T>& 
      }
      else{
        throw std::domain_error("ratio is more than 1");
-     } }
-  
+     } 
+  }
+  // El-Guindy, A., & Ismail, M. E. (2016). On Certain Generalizations of Rogers-Ramanujan Type Identities. arXiv preprint arXiv:1602.00316.
+  template <class T> interval<T> _1phi_1_ver2(const interval<T> & a, const interval<T> & c,const interval<T>& q, const interval<T> & z) {
+    interval<T>  res;
+    res=_1phi_1(interval<T> (a),interval<T> (c), interval<T>(q),interval<T> (z));
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
+      res=infinite_qPochhammer(interval<T> (z),interval<T>(q))
+	/infinite_qPochhammer(interval<T> (c),interval<T>(q))
+	*_1phi_1(interval<T> (a*z/c),interval<T> (z),interval<T>(q),interval<T> (c));
+      
+      }
+    return res;
+  }
+  template <class T> complex<interval<T> >_1phi_1_ver2(const complex<interval<T> >& a, const complex<interval<T> >& c,const interval<T>& q, const complex<interval<T> >& z) {
+    complex<interval<T> > res;
+    res=_1phi_1(complex<interval<T> >(a),complex<interval<T> >(c), interval<T>(q),complex<interval<T> >(z));
+    if((abs(res)).upper()==std::numeric_limits<T>::infinity()){
+      res=infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))
+	/infinite_qPochhammer(complex<interval<T> >(c),interval<T>(q))
+	*_1phi_1(complex<interval<T> >(a*z/c),complex<interval<T> >(z),interval<T>(q),complex<interval<T> >(c));
+    }
+    return res;
+  }
   // calculate basic hypergeometric series 0phi1
   
   // reference
@@ -415,7 +437,16 @@ template <class T> interval<T> Ramanujan_qAiry(const interval<T>& q, const inter
       /infinite_qPochhammer(interval<T>(-1.),interval<T>(sqrt(q)));
     return res;
   }
-
+  template <class T> complex<interval<T> >Ramanujan_qAiry_mqB(const interval<T>& q, const complex<interval<T> >& z) {
+    complex<interval<T> >res;
+    interval<T>pi;
+    pi=constants<interval<T> >::pi();
+    res=sqrt(q*z)/sqrt(1+q+q*q)/pi
+      *(modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(-1/3.,0.),interval<T>(pow(q,3/2.)))-
+	modified_qBesselI2(complex<interval<T> >(2/(1+q+q*q)*pow(q*z,1.5)*(1-pow(q,1/3.))),complex<interval<T> >(1/3.,0),interval<T>(pow(q,3/2.))));
+    return res; 
+    // to be updated
+  }
   /*
   template <class T> complex<interval<T> >Ramanujan_qAiry_ae(const interval<T>& q, const complex<interval<T> >& Z) {
     // calculate Ramanujan`s q-Airy function with asymptotic formula
