@@ -83,49 +83,23 @@ S.M. Rump: INTLAB - INTerval LABoratory.
 In Tibor Csendes, editor, Developments in Reliable Computing, pages 77-104. 
 Kluwer Academic Publishers, Dordrecht, 1999.
 
-George. E. Andrews, Mircea Merca, 
-The truncated pentagonal number theorem,
-Journal of Combinatorial Theory, Series A,
-
-M. A. Olshanetsky, V. B. K. Rogov,
-The Modified q-Bessel Functions and the q-Bessel Macdonald Functions
-
 Mourad E. H. Ismail,
 CLASSICAL AND QUANTUM ORTHOGONAL POLYNOMIALS IN ONE VARIABLE,
 Encyclopedia of Mathematics and its Applications 98,
-CAMBRIDGE UNIVERSITY PRESS
+CAMBRIDGE UNIVERSITY PRESS, 2005.
 
 George E. Andrews, Richard Askey, Ranjan Roy,
 SPECIAL FUNCTIONS,
 Encyclopedia of Mathematics and its Applications 71,
-CAMBRIDGE UNIVERSITY PRESS
-
-Shin Isojima, Ultradiscrete limit of Bessel function type solutions of the Painleve III equation
-
-Bouzeffour, New Addition Formula for the Little q-Bessel Functions, arXiv, 2013
-
-Ruiming Zhang, Plancherel-Rotach asymptotics for certain basic hypergeometric series, Advances in Mathematics, 2008
-
-Fredrik Johansson, Computing hypergeometric functions rigorously, arXiv, 2016
-
-Brahim and Sidomou, On Some Symmetric q-Special Functions, 2013
+CAMBRIDGE UNIVERSITY PRESS, 1999.
 
 Wolfram Mathworld http://mathworld.wolfram.com/
 
-Savage, Sills, On an identity of Gessel and Stanton and new little Gollnitz identities, 2009 
+George Gasper, Mizan Rahman,
+Basic hypergeometric series,
+Encyclopedia of Mathematics and its Applications 96,
+CAMBRIDGE UNIVERSITY PRESS, 2004.
 
-M. A. Bershtein, A. I. Shechechkin, q-deformed Painlev\`e \tau function and q-deformed conformal blocks, arXiv, 2016
-
-Isojima, Konno, Mimura, Murata, Satsuma, Ultradiscrete Painlev\`e II equation and a special function solution, JOURNAL OF PHYSICS A: MATHEMATICAL AND THEORETICAL, 2011
-
-Ahmed Fitouhi, Fethi Bouzeffour, Wafa Binous, Expansion and asymptotic in terms of basic Bessel functions, Applied Mathematics and Computation 188 (2007) 2034–2044
-
-H. T Koelink, Hansen-Lommel Orthogonality Relations for Jackson`s q-Bessel functions, Journal of Mathematical Analysis and Applications 175, 425-437 (1993)
-
-A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
-
-Mourad E. H. Ismail, Changgui Zhang, Zeros of entire functions and a problem of Ramanujan, Advances in Mathematics 209 (2007) 363–380
-
-Kenichiro Tanaka, Masaaki Sugihara, Kazuo Murota, Masatake Mori (2007) Function Classes for Double Exponential Integration Formulas. Mathematical Engineering Technical Reports, METR2007-07, University of Tokyo. 
-
-Bruno Gabutti, Giampietro Allasia, (2008). Evaluation of q-gamma function and q-analogues by iterative algorithms. Numerical Algorithms, 49(1), 159-168.
+Victor Kac, Pokman Cheung,
+Quantum calculus,
+Springer Science & Business Media, 2001.
