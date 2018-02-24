@@ -28,6 +28,7 @@ int main()
     cout<<"value of RqA inf"<<kv::Ramanujan_qAiry(itv(q),itv(x(i+1).lower()))<<endl;
     cout<<"value of RqA sup"<<kv::Ramanujan_qAiry(itv(q),itv(x(i+1).upper()))<<endl;
     cout<<"value of RqA mid"<<kv::Ramanujan_qAiry(itv(q),itv(mid(x(i+1))))<<endl;
-
+　　 cout<<"value of contraction const:"<<abs(1-xy*(kv::Ramanujan_qAiry(itv(q),itv(x(i)))-kv::Ramanujan_qAiry(itv(q),itv(q*x(i)))) 
+					    /x(i)/(kv::Ramanujan_qAiry(itv(q),itv(xy))-kv::Ramanujan_qAiry(itv(q),itv(q*xy)))).upper()<<endl;
   }
 }
