@@ -1,5 +1,4 @@
 #include <kv/Heine.hpp>
-#include <kv/qAiry.hpp>
 #include <kv/qBessel.hpp>
 #include <cmath>
 #include <iostream>
@@ -29,5 +28,7 @@ int main()
     cout<<"value of J2 inf"<<kv::Jackson2(itv(x(i+1).lower()),itv(nu),itv(q))<<endl;
     cout<<"value of J2 sup"<<kv::Jackson2(itv(x(i+1).upper()),itv(nu),itv(q))<<endl;
     cout<<"value of J2 mid"<<kv::Jackson2(itv(mid(x(i+1))),itv(nu),itv(q))<<endl;
+      cout<<"value of contraction const."<<(abs(1-xy*(kv::Jackson2(itv(x(i+1)),itv(nu),itv(q))-kv::Jackson2(itv(q*x(i+1)),itv(nu),itv(q))) 
+					      /x(i)/(kv::Jackson2(itv(xy),itv(nu),itv(q))-kv::Jackson2(itv(q*xy),itv(nu),itv(q))))).upper()<<endl;  
   }
 }
