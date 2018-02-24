@@ -1,5 +1,4 @@
 #include <kv/Heine.hpp>
-#include <kv/qAiry.hpp>
 #include <kv/qBessel.hpp>
 #include <cmath>
 #include <iostream>
@@ -29,6 +28,7 @@ int main()
     cout<<"value of HE inf"<<kv::Hahn_Exton(itv(x(i+1).lower()),itv(nu),itv(q))<<endl;
     cout<<"value of HE sup"<<kv::Hahn_Exton(itv(x(i+1).upper()),itv(nu),itv(q))<<endl;
     cout<<"value of HE mid"<<kv::Hahn_Exton(itv(mid(x(i+1))),itv(nu),itv(q))<<endl;
-
+      cout<<"value of contraction const."<<(abs(1-xy*(kv::Hahn_Exton(itv(x(i+1)),itv(nu),itv(q))-kv::Hahn_Exton(itv(q*x(i+1)),itv(nu),itv(q))) 
+					      /x(i)/(kv::Hahn_Exton(itv(xy),itv(nu),itv(q))-kv::Hahn_Exton(itv(q*xy),itv(nu),itv(q))))).upper()<<endl;
   }
 }
