@@ -12,13 +12,19 @@ namespace kv {
     return (f(x)-f(y))/(1-q)/x;
   }
   template <class T, class F>
-  interval<T>JacksonD2(F f,const interval<T> & x,const interval<T>& q){
+  complex<interval<T> >JacksonD(F f,const complex<interval<T> >& x,const interval<T>& q){
+    complex<interval<T> >y;
+    y=q*x;
+    return (f(x)-f(y))/(1-q)/x;
+  }
+  template <class T, class F>
+  interval<T>JacksonD2(F f,const interval<T> &  x,const interval<T>& q){
     interval<T>y;
     y=q*x;
     return (JacksonD(f,x,q)-JacksonD(f,y,q))/(1-q)/x;
   }
   template <class T, class F>
-  interval<T>JacksonD3(F f,const interval<T> & x,const interval<T>& q){
+  interval<T>JacksonD3(F f,const interval<T> &  x,const interval<T>& q){
     interval<T>y;
     y=q*x;
     return (JacksonD2(f,x,q)-JacksonD2(f,y,q))/(1-q)/x;
@@ -35,6 +41,13 @@ namespace kv {
     m=mid(x);
     return f(m)+JacksonD(f,x,q)*(x-m);
   }
+  template <class T, class F>
+  complex<interval<T> >qmvf(F f,const complex<interval<T> >& x,const interval<T> & q){
+    complex<interval<T> >m;
+    m=complex<interval<T> >(mid(x.real()),mid(x.imag()));
+    return f(m)+JacksonD(f,x,q)*(x-m);
+  }
+
   template <class T, class F>
   interval<T>qSchwarzD(F f,const interval<T> & x,const interval<T>& q){
     return JacksonD3(f,x,q)/JacksonD(f,x,q)
