@@ -17,6 +17,23 @@ namespace kv {
     y=q*x;
     return (f(x)-f(y))/(1-q)/x;
   }
+
+  template <class T, class F>
+  interval<T>mJacksonD(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>y;
+    y=q*x;
+    return (f(x)-f(y))/(1-q)/x/(1+(1-q)*f(y));
+    // modified with q-subtraction (Borges)
+  }
+  template <class T, class F>
+  interval<T>modJacksonD(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>y;
+    y=q*x;
+    return (f(x)-q*f(y))/(1-q)/x;
+    // modified with q-subtraction (Hahn)
+  }
+
+
   template <class T, class F>
   interval<T>JacksonD2(F f,const interval<T> &  x,const interval<T>& q){
     interval<T>y;
@@ -30,7 +47,6 @@ namespace kv {
     return (JacksonD2(f,x,q)-JacksonD2(f,y,q))/(1-q)/x;
   }
 
-  // next make higher order
   template <class T, class F>
   interval<T>Dh(F f,const interval<T> & x,const interval<T>& h){
     return (f(x+h)-f(x))/h;
@@ -42,10 +58,25 @@ namespace kv {
     return f(m)+JacksonD(f,x,q)*(x-m);
   }
   template <class T, class F>
+  interval<T>mqmvf(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>m;
+    m=mid(x);
+    return f(m)+mJacksonD(f,x,q)*(x-m);
+    // test with x-sin(x), x-cos(x)
+  }
+ template <class T, class F>
+  interval<T>modqmvf(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>m;
+    m=mid(x);
+    return f(m)+modJacksonD(f,x,q)*(x-m);
+ // test with x*x*x-exp(x)
+  }
+  template <class T, class F>
   complex<interval<T> >qmvf(F f,const complex<interval<T> >& x,const interval<T> & q){
     complex<interval<T> >m;
     m=complex<interval<T> >(mid(x.real()),mid(x.imag()));
     return f(m)+JacksonD(f,x,q)*(x-m);
+   
   }
 
   template <class T, class F>
