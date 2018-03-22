@@ -32,7 +32,15 @@ namespace kv {
     return (f(x)-q*f(y))/(1-q)/x;
     // modified with q-subtraction (Hahn)
   }
-
+  template <class T, class F>
+  interval<T>mmJacksonD(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>y;
+    int n ;
+    n=10000;
+    y=q*x;
+    return (f(x)*sqrt(1-(1-pow(q,1./n))*f(y)*f(y))-f(y)*sqrt(1-(1-pow(q,1./n))*f(x)*f(x)))/(1-q)/x;
+    // modified with q-subtraction
+  }
 
   template <class T, class F>
   interval<T>JacksonD2(F f,const interval<T> &  x,const interval<T>& q){
@@ -70,6 +78,12 @@ namespace kv {
     m=mid(x);
     return f(m)+modJacksonD(f,x,q)*(x-m);
  // test with x*x*x-exp(x)
+  }
+  template <class T, class F>
+  interval<T>mmqmvf(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>m;
+    m=mid(x);
+    return f(m)+mmJacksonD(f,x,q)*(x-m);
   }
   template <class T, class F>
   complex<interval<T> >qmvf(F f,const complex<interval<T> >& x,const interval<T> & q){
