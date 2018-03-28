@@ -102,13 +102,7 @@ namespace kv {
     return f(m)+mmmJacksonD(f,x,q)*(x-m);
   }
 
-  template <class T, class F>
-  complex<interval<T> >qmvf(F f,const complex<interval<T> >& x,const interval<T> & q){
-    complex<interval<T> >m;
-    m=complex<interval<T> >(mid(x.real()),mid(x.imag()));
-    return f(m)+JacksonD(f,x,q)*(x-m);
-   
-  }
+
 
   template <class T, class F>
   interval<T>qSchwarzD(F f,const interval<T> & x,const interval<T>& q){
