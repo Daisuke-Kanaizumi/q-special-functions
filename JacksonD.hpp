@@ -41,6 +41,16 @@ namespace kv {
     return (f(x)*sqrt(1-(1-pow(q,1./n))*f(y)*f(y))-f(y)*sqrt(1-(1-pow(q,1./n))*f(x)*f(x)))/(1-q)/x;
     // modified with q-subtraction
   }
+  template <class T, class F>
+  interval<T>mmmJacksonD(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>y;
+    int n ;
+    n=10000;
+    y=q*x;
+    return (f(x)*sqrt(1-(1-pow(q,1./n))*f(y)*f(y)*f(y)*f(y))
+	    -f(y)*sqrt(1-(1-pow(q,1./n))*f(x)*f(x)*f(x)*f(x)))/(1-q)/x/(1+(1-q)*f(x)*f(x)*f(y)*f(y));
+    // modified with q-subtraction made by Euler's formal group
+  }
 
   template <class T, class F>
   interval<T>JacksonD2(F f,const interval<T> &  x,const interval<T>& q){
@@ -85,6 +95,13 @@ namespace kv {
     m=mid(x);
     return f(m)+mmJacksonD(f,x,q)*(x-m);
   }
+  template <class T, class F>
+  interval<T>mmmqmvf(F f,const interval<T> & x,const interval<T>& q){
+    interval<T>m;
+    m=mid(x);
+    return f(m)+mmmJacksonD(f,x,q)*(x-m);
+  }
+
   template <class T, class F>
   complex<interval<T> >qmvf(F f,const complex<interval<T> >& x,const interval<T> & q){
     complex<interval<T> >m;
