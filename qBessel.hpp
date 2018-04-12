@@ -3,7 +3,7 @@
 // Email: daisuke15@asagi.waseda.jp
 
 // verification program for q-Bessel functions
-// May 25th, 2017
+// April 12th, 2018
 
 #ifndef QBESSEL_HPP
 #define QBESSEL_HPP
@@ -471,7 +471,11 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
     
     return res;
   }
-
+  template <class T> interval<T> J2ratio(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
+    interval<T>res;
+    res=Jackson2(interval<T>(z),interval<T>(nu),interval<T>(q))/Jackson2(interval<T>(z),interval<T>(nu-1),interval<T>(q));
+    return res;
+  }
   template <class T> complex<interval<T> >modified_qBesselI2(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
     //verification program for 2nd modified q-Bessel function I2
     complex<interval<T> >res,i;
@@ -512,6 +516,19 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
       *_1phi_1(interval<T> (z*z/4),interval<T> (0.),interval<T>(q),interval<T> (pow(q,nu+1)));
     return res;       
   }
+  /*template <class T> interval<T> modified_qBesselI2_ae(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
+    //verification program for 2nd modified q-Bessel function I2, z>0
+    // reference
+    // Ismail, M. E., & Zhang, R. (2015). $ q $-Bessel Functions and Rogers-Ramanujan Type Identities.
+    // arXiv preprint arXiv:1508.06861.
+    interval<T> res;
+    if(abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    res=pow(z/2.,nu)*infinite_qPochhammer(interval<T>(sqrt(q)),interval<T>(q))*0.5/Euler(interval<T>(q))
+      *(infinite_qPochhammer(interval<T>(z*0.5*pow(q,(nu+0.5)*0.5)),interval<T>(sqrt(q)))+infinite_qPochhammer(interval<T>(-z*0.5*pow(q,(nu+0.5)*0.5)),interval<T>(sqrt(q))));
+    return res;
+    }*/
   template <class T> interval<T> Hahn_Exton(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
     // verification program for Hahn-Exton q-Bessel function
     interval<T> res,pq;
@@ -526,7 +543,7 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
        // A. B. Olde Daalhuis, Asymptotic Expansions for q-Gamma, q-Exponential and q-Bessel Functions, formula 4.6
        // Journal of Mathematical Analysis and Applications 186, 896-913 (1994)
        
-	 res=pow(z,nu)*infinite_qPochhammer(interval<T> (z*z*q),interval<T>(q))*_1phi_1(interval<T> (0),interval<T> (z*z*q),interval<T>(q),interval<T> (pq))/Euler(interval<T> (q));
+    	 res=pow(z,nu)*infinite_qPochhammer(interval<T> (z*z*q),interval<T>(q))*_1phi_1(interval<T> (0),interval<T> (z*z*q),interval<T>(q),interval<T> (pq))/Euler(interval<T> (q));
        return res;       
   }
   template <class T> complex<interval<T> >Hahn_Exton(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
@@ -546,7 +563,13 @@ template <class T> complex<interval<T> >Jackson2(const complex<interval<T> >& z,
     res=pow(z,nu)*infinite_qPochhammer(complex<interval<T> >(z*z*q),interval<T>(q))*_1phi_1(complex<interval<T> >(0),complex<interval<T> >(z*z*q),interval<T>(q), complex<interval<T> >(pq))/Euler(interval<T> (q));
      return res;       
   }
- 
+   template <class T> interval<T> HEratio(const interval<T> & z,const interval<T> & nu,const interval<T>& q){
+    interval<T>res;
+    res=Hahn_Exton(interval<T>(z),interval<T>(nu),interval<T>(q))/Hahn_Exton(interval<T>(z),interval<T>(nu-1),interval<T>(q));
+    return res;
+  }
+
+
   template <class T> complex<interval<T> >little(const complex<interval<T> >& z,const complex<interval<T> >& nu,const interval<T>& q){
     // verification program for little q-Bessel function
     // reference
