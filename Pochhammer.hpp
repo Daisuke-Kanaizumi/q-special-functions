@@ -24,6 +24,9 @@
 #include <kv/constants.hpp>
 #include <kv/Gatteschi.hpp>
 #include <kv/Heine.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
+namespace ub = boost::numeric::ublas;
 namespace kv{
   template <class T> interval<T> Pochhammer(const interval<T>& a, const int& n){
     interval<T> res;
@@ -169,23 +172,21 @@ namespace kv{
   while(abs(z)*pow(q,n)/(1-q)>=0.5){
     n=n+50;
   }
-  if(q<0.9){
+   if(q<0.9){
     rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
     r=interval<T>(1-rad,1+rad);
     res=qPochhammer(interval<T>(z),interval<T>(q),int(n))*r;
-  }
-  else{
-    res=Gatteschi_qp(interval<T>(z),interval<T>(q));
-  }
+     }
+    else{
+      res=Gatteschi_qp(interval<T>(z),interval<T>(q));
+    }
   return res;
-  //}
+ 
 }
   
   
   template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const interval<T>& q,int n=100){
-    complex<interval<T> >res,logqp,logmid,logres;
-    interval<T> r,pi;
-    pi=constants<interval<T> >::pi();
+    complex<interval<T> >res,r;
     T rad;
     
  
@@ -214,26 +215,31 @@ namespace kv{
       // Reference: Plancherel-Rotach asymptotics for certain basic hypergeometric series
       // Zhang, 2008
       
-      while(abs(z)*pow(q,n)/(1-q)>=0.5){
-	n=n+50;
-      }
-  rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
+    while(abs(z)*pow(q,n)/(1-q)>=0.5){
+      n=n+50;
+    }
+    if(q<0.9){
+    rad=(2*abs(z)*pow(q,n)/(1-q)).upper();
     r=complex_nbd(complex<interval<T> >(1.,0.),rad);
-  res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
-  return res;
-  //   }
+    res=qPochhammer(complex<interval<T> >(z),interval<T>(q),int(n))*r;
+    }
+    else{
+      res=Gatteschi_qp(complex<interval<T> >(z) ,interval<T>(q)); 
+    }
+    return res;
+    //   }
   }
   /*
-template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q){
-  // abolished implementation (March 22nd, 2017)
-  // reference: Ismail,Zhang (2016), Integral and Series Representations of q-Polynomials and Functions: Part I, arXiv
-  // Chapter 6.1, Lemma 6.1
-  interval<T>res;
-  T rad;
-  rad=(exp(abs(z)/(1-q))*abs(z)/(1-q)).upper();
-  res=1+rad*interval<T>(-1,1);
-  return res;
-}
+    template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const interval<T>& q){
+    // abolished implementation (March 22nd, 2017)
+    // reference: Ismail,Zhang (2016), Integral and Series Representations of q-Polynomials and Functions: Part I, arXiv
+    // Chapter 6.1, Lemma 6.1
+    interval<T>res;
+    T rad;
+    rad=(exp(abs(z)/(1-q))*abs(z)/(1-q)).upper();
+    res=1+rad*interval<T>(-1,1);
+    return res;
+    }
   */
   template <class T> complex<interval<T> >infinite_qPochhammer(const complex<interval<T> >& z,const complex<interval<T> >& q){
     // reference: M. A. Bershtein, A. I. Shechechkin (arXiv, 2016)
@@ -309,11 +315,11 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
       throw std::domain_error("ratio is more than 1");
     } 
 }
-  template <class T> complex<interval<T> >elliptic_gamma(const complex<interval<T> >& z,const complex<interval<T> >& p ,const complex<interval<T> >& q){
-    // verification program for elliptic gamma function
+ template <class T> complex<interval<T> >inf_elliptic_Pochhammer(const complex<interval<T> >& z,const interval<T> & p ,const interval<T> & q){
+    // verification program for infinite elliptic Pochhammer symbol
     // reference: M. A. Bershtein, A. I. Shechechkin (arXiv, 2016)
     // q-deformed Painlev\`e \tau function and q-deformed conformal blocks, Appendix A
-    complex<interval<T> >res;
+    complex<interval<T> >res,sum,mid,pz,pq,pp;
     if (abs(z)>=1){
       throw std::domain_error("implemented only for |z|<1");
     }
@@ -323,10 +329,32 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
     if (abs(p)>=1){
       throw std::domain_error("absolute value of p must be under 1");
     }
-    res=inf_elliptic_Pochhammer(complex<interval<T> >(p*q/z),complex<interval<T> >(p),complex<interval<T> >(q))
-      /inf_elliptic_Pochhammer(complex<interval<T> >(z),complex<interval<T> >(p),complex<interval<T> >(q));
-    return res;
-  }
+    int N;
+    N=100;
+    interval<T>ratio,first;
+    T rad;
+    mid=0.;
+    pz=1.;
+    pq=1.;
+    pp=1.;
+    for(int n=1;n<=N-1;n++){
+      pz*=z;
+      pq*=q;
+      pp*=p;
+      mid=mid+pz/n/(1-pq)/(1-pp);
+    }
+    first=abs(pow(z,N)/N/(1-pow(p,N))/(1-pow(q,N)));
+    ratio=abs(z)*(1+1/(N+1))*(1+abs(q-1)*abs(pow(q,N))/abs(1-pow(q,N+1)))*(1+abs(p-1)*abs(pow(p,N))/abs(1-pow(p,N+1)));
+      if (ratio<1){
+      rad=(first/(1-ratio)).upper();
+      sum=complex_nbd(mid,rad);
+      res=exp(-sum);
+      return res;
+      }
+    else{
+      throw std::domain_error("ratio is more than 1");
+    } 
+}
   template <class T> complex<interval<T> >qBarnesG(const complex<interval<T> >& z,const complex<interval<T> >& q){
     // verification program for q-Barnes G function
     // reference: M. A. Bershtein, A. I. Shechechkin (arXiv, 2016)
@@ -342,19 +370,16 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
     return res;
   }
   template <class T> interval<T> q_exp(const interval<T>& z,const interval<T>& q){
-    // verification program for q-exponential function e_q(z)
+    // verification program for q-exponential function E_q(z)
     interval<T>res;
-    res=1/infinite_qPochhammer(interval<T> (z),interval<T>(q));
+    res=infinite_qPochhammer(interval<T> (-z),interval<T>(q));
     return res;
   }
   
   template <class T> complex<interval<T> >q_exp(const complex<interval<T> >& z,const interval<T>& q){
-    // verification program for q-exponential function e_q(z)
+    // verification program for q-exponential function E_q(z)
     complex<interval<T> >res;
-    if (abs(z)>=1){
-      throw std::domain_error("absolute value of z must be under 1");
-    }
-    res=1/infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q));
+    res=infinite_qPochhammer(complex<interval<T> >(-z),interval<T>(q));
     return res;
   }
 
@@ -436,17 +461,7 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
    if (q>=1){
      throw std::domain_error("value of q must be under 1");
    }
-  template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
-    // Zhang C. (2005) Remarks on Some Basic Hypergeometric Series. 
-    // In: Ismail M.E., Koelink E. (eds) Theory and Applications of Special Functions. Developments in Mathematics, vol 13. Springer, Boston, MA
-    complex<interval<T> >res;
-    res=infinite_qPochhammer(interval<T>(q),interval<T>(q))
-      *infinite_qPochhammer(complex<interval<T> >(z),interval<T>(q))
-      *infinite_qPochhammer(complex<interval<T> >(q/z),interval<T>(q))
-      /infinite_qPochhammer(complex<interval<T> >(b),interval<T>(q))
-      /infinite_qPochhammer(complex<interval<T> >(b/z),interval<T>(q));
-    return res;
-  }   if (q<=0){
+   if (q<=0){
      throw std::domain_error("q must be positive");
    }
     if (abs(z)>=1){
@@ -510,8 +525,8 @@ template <class T> interval<T> infinite_qPochhammer(const interval<T>& z,const i
     else{
       throw std::domain_error("Ramanujan psi sum cannot be calculated");
     }
-}
-template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
+  }
+  template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,const interval<T>(q),const complex<interval<T> >& z){
     // Zhang C. (2005) Remarks on Some Basic Hypergeometric Series. 
     // In: Ismail M.E., Koelink E. (eds) Theory and Applications of Special Functions. Developments in Mathematics, vol 13. Springer, Boston, MA
     complex<interval<T> >res;
@@ -537,7 +552,7 @@ template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,c
       res=qp;
       return res;
     }
-    }
+  }
   template <class T> complex<interval<T> >qPochhammer(const complex<interval<T> >& z,const interval<T>& q,const int& n){
     complex<interval<T> >res,qp;
     int k;
@@ -554,7 +569,7 @@ template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,c
       return res;
     }
     }
-	  template <class T> complex<interval<T> >qPochhammer(const complex<interval<T> >& z,const complex<interval<T> >& q,const int& n){
+  template <class T> complex<interval<T> >qPochhammer(const complex<interval<T> >& z,const complex<interval<T> >& q,const int& n){
     complex<interval<T> >res,qp;
     int k;
     qp=1.;
@@ -570,5 +585,36 @@ template <class T> complex<interval<T> >_0psi_1(const complex<interval<T> >& b,c
       return res;
     }
     }
+  template <class T> ub::matrix<interval<T> >infinite_qPochhammer(const ub::matrix<interval<T> >& A,const interval<T>& q){
+    int n,M;
+    M=100;
+    n=A.size1();//A:square matrix
+    interval<T> error,norm;
+    ub::matrix< interval<T> > I(n, n),res(n, n),pro(n,n);
+    for(int i=0;i<n;i++){
+      for(int j=0;j<n;j++){
+	if(i==j){
+	  pro(i,j)=1.;
+	   I(i,j)=1.;
+	}
+	else{ 
+	  pro(i,j)=0.;
+	  I(i,j)=0.;
+	}
+      }      
+    }
+    for(int N=0;N<=M;N++){;
+      pro=prod(pro,I-A*pow(q,N));
+    } 
+    norm=abs(A(0,0));
+    for(int i1=0;i1<n;i1++){
+      for(int j1=0;j1<n;j1++){
+	if (A(i1,j1)>abs(norm)) norm=abs(A(i1,j1));
+      }
+    }
+    error=(2*norm*pow(q,M)/(1-q)).upper();
+    res=pro*(1+error*interval<T>(-1.,1.));
+    return res;
+  }
 }
 #endif
