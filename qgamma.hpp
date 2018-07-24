@@ -13,7 +13,10 @@
 #include <algorithm>
 #include <kv/Heine.hpp>
 #include <kv/Pochhammer.hpp>
-
+#include <kv/qPochhammerVer2.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
+namespace ub = boost::numeric::ublas;
 namespace kv{
 template <class T> interval<T> q_gamma(const interval<T>& z,const interval<T>& q){
    // q must be positive
@@ -54,6 +57,90 @@ template <class T> interval<T> q_gamma(const interval<T>& z,const interval<T>& q
     }
     return res;
  }
+template <class T> ub::matrix<interval<T> >MExp(const ub::matrix<interval<T> >& A){
+  int n,M;
+  M=100;
+  n=A.size1();//A:square matrix
+  ub::matrix< interval<T> > B(n, n),res(n, n),sum(n, n),pro(n,n);
+  interval<T> error,norm;
+  T b;
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      sum(i,j)=0.;
+      if(i==j)pro(i,j)=1.;
+      else pro(i,j)=0.;
+    }
+  }
+  for(int N=0;N<=M;N++){
+    sum+=(1./Pochhammer(interval<T>(1.,1.),N))*pro;
+    pro=prod(pro,A);
+  }
+  norm=abs(A(0,0));
+  for(int i1=0;i1<n;i1++){
+    for(int j1=0;j1<n;j1++){
+      if (A(i1,j1)>abs(norm)) norm=abs(A(i1,j1));
+    }
+  }
+
+  error=exp(norm)*pow(norm,M+1)/Pochhammer(interval<T>(1.,1.),M+1);
+  b=(abs(error)).upper();
+
+  for(int k1=0;k1<n;k1++){
+    for(int l1=0;l1<n;l1++){
+      B(k1,l1).assign(-1.,1.);
+      B(k1,l1)=b*B(k1,l1);
+    }
+  }
+  res=sum+B;
+  return res;
+}
+template <class T> ub::matrix<interval<T> >q_gamma(const ub::matrix<interval<T> >& A,const interval<T>& q){
+  int n;
+  n=A.size1();//A:square matrix
+  interval<T>buf;
+  ub::matrix< interval<T> > I(n, n),B(n, n),res(n, n),exp(n,n),inv(n,n),qp(n,n),qa(n,n),AA(n,n);
+  
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      if(i==j){
+	I(i,j)=1.;
+	inv(i,j)=1.;
+      }
+      else{ 
+	I(i,j)=0.;
+	inv(i,j)=0.;
+      }
+    }      
+  }
+  AA=log(q)*A;
+  qa=MExp(AA);
+  qp=infinite_qPochhammer(ub::matrix<interval<T> > (qa), interval<T> (q));
+//std::cout<<qp<<std::endl;
+  for(int i1=0;i1<n;i1++){
+    buf=1./qp(i1,i1);
+    for(int j1=0;j1<n;j1++){
+      qp(i1,j1)*=buf;
+      inv(i1,j1)*=buf;
+    }
+ 
+    for(int j2=0;j2<n;j2++){
+      if(i1!=j2){
+	buf=qp(j2,i1);
+	for(int k=0;k<n;k++){
+	  qp(j2,k)-=qp(i1,k)*buf;
+	  inv(j2,k)-=inv(i1,k)*buf;
+	}
+      }
+    }
+  }
+  B=I-A;
+  B=log(1-q)*B;
+  std::cout<<B<<std::endl;
+  exp=MExp(B);
+  res=infinite_qPochhammer(interval<T>(q),interval<T>(q))
+    *prod(inv,exp);
+  return res;
+}
   template <class T> complex<interval<T> >qgamma_Gauss_multi(const complex<interval<T> >& z,const interval<T>& q, int  p=3){
   if(q<1 && q>0){
     // M Mansour (2006) An asymptotic expansion of the q-gamma function Γ q (x), Journal of Nonlinear Mathematical Physics, 13:4, 479-483, DOI: 10.2991/jnmp.2006.13.4.2
@@ -192,5 +279,89 @@ template <class T> complex<interval<T> >qgamma_Legendre(const complex<interval<T
       *Heine(complex<interval<T> >(z*(1-q)),complex<interval<T> >(pow(q,a)),complex<interval<T> >(0.),interval<T>(q),complex<interval<T> >(qq));
     return res;
   }
+ template <class T> complex<interval<T> >elliptic_gamma(const complex<interval<T> >& z,const interval<T> & p ,const interval<T> & q){
+    // verification program for elliptic gamma function
+    // reference: M. A. Bershtein, A. I. Shechechkin (arXiv, 2016)
+    // q-deformed Painlev\`e \tau function and q-deformed conformal blocks, Appendix A
+    complex<interval<T> >res;
+    /* if (abs(z)>=1){
+      throw std::domain_error("implemented only for |z|<1");
+      }*/
+    if (abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    if (abs(p)>=1){
+      throw std::domain_error("absolute value of p must be under 1");
+    }
+    res=inf_elliptic_Pochhammer(complex<interval<T> >(p*q/z),complex<interval<T> >(p),complex<interval<T> >(q))
+      /inf_elliptic_Pochhammer(complex<interval<T> >(z),complex<interval<T> >(p),complex<interval<T> >(q));
+    return res;
+  }
+  template <class T> complex<interval<T> > modified_Jacobi_theta(const complex<interval<T> >&a,const interval<T> &q){
+    complex<interval<T> >res;
+    res=infinite_qPochhammer(complex<interval<T> >(a),interval<T>(q))
+      *infinite_qPochhammer(complex<interval<T> >(q/a),interval<T>(q));
+    return res;
+  } 
+  template <class T> interval<T>  modified_Jacobi_theta(const interval<T> &a,const interval<T> &q){
+    interval<T> res;
+    res=qPVer2(interval<T> (a),interval<T>(q))
+      *qPVer2(interval<T> (q/a),interval<T>(q));
+    return res;
+  }
+  template <class T> complex<interval<T> >elliptic_gamma_tilde(const complex<interval<T> >& z,const interval<T> & p ,const interval<T> & q){
+    complex<interval<T> >res;
+    if (abs(z)>=1){
+      throw std::domain_error("implemented only for |z|<1");
+    }
+    if (abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    if (abs(p)>=1){
+      throw std::domain_error("absolute value of p must be under 1");
+    }
+    res=infinite_qPochhammer(interval<T> (q),interval<T> (q))/infinite_qPochhammer(interval<T> (p),interval<T> (p))
+      *pow(modified_Jacobi_theta(q,p),1-log(z)/log(q))*elliptic_gamma(complex<interval<T> >(z),interval<T>(p),interval<T>(q));
+    return res;
+  }
+  template <class T> complex<interval<T> >elliptic_gamma_shift(const complex<interval<T> >& z,const interval<T> & p ,const interval<T> & q,int n){
+    complex<interval<T> >res,pro1,pro2;
+    interval<T> r;
+    r=pow(q,n);
+    if (abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    if (abs(p)>=1){
+      throw std::domain_error("absolute value of p must be under 1");
+    }
+    for(int i=1;i<=n-1;i++){
+      pro1=pro1*elliptic_gamma_tilde(complex<interval<T> >(i/T(n)),interval<T>(p),interval<T>(r));
+    }
+    for(int j=0;j<=n-1;j++){
+      pro2=pro2*elliptic_gamma_tilde(complex<interval<T> >((z+j)/T(n)),interval<T>(p),interval<T>(r));
+    }
+    res=pow(modified_Jacobi_theta(r,p)/modified_Jacobi_theta(q,p),z-1)*pro2/pro1;
+    return res;
+  }
+ template <class T> complex<interval<T> >elliptic_gamma_shift2(const complex<interval<T> >& z,const interval<T> & p ,const interval<T> & q,int n){
+    complex<interval<T> >res,pro1,pro2;
+    interval<T> r;
+    r=pow(q,n);
+    if (abs(q)>=1){
+      throw std::domain_error("absolute value of q must be under 1");
+    }
+    if (abs(p)>=1){
+      throw std::domain_error("absolute value of p must be under 1");
+    }
+    for(int i=1;i<=n-1;i++){
+      pro1=pro1*elliptic_gamma_tilde(complex<interval<T> >(T(i)/T(n)),interval<T>(p),interval<T>(r));
+    }
+    for(int j=0;j<=n-1;j++){
+      pro2=pro2*elliptic_gamma_shift(complex<interval<T> >((z+T(j))/T(n)),interval<T>(p),interval<T>(r),int(n));
+    }
+    res=pow(modified_Jacobi_theta(r,p)/modified_Jacobi_theta(q,p),z-1)*pro2/pro1;
+    return res;
+  }
 }
+
 #endif
