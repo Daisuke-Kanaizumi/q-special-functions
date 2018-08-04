@@ -589,8 +589,9 @@ namespace kv{
     int n,M;
     M=100;
     n=A.size1();//A:square matrix
-    interval<T> error,norm;
-    ub::matrix< interval<T> > I(n, n),res(n, n),pro(n,n);
+    interval<T> error,norm,dd,sum;
+    sum=0.;
+    ub::matrix< interval<T> > I(n, n),res(n, n),pro(n,n),B(n,n);
     for(int i=0;i<n;i++){
       for(int j=0;j<n;j++){
 	if(i==j){
@@ -602,6 +603,15 @@ namespace kv{
 	  I(i,j)=0.;
 	}
       }      
+    }
+    B=I-A;
+    // confiriming invertibility by checking diagonal dominance of I-A 
+    for(int i2=0;i2<n;i2++){
+      for(int j2=0;j2<n;j2++){
+	if(i2!=j2)sum=sum+abs(B(i2,j2));
+      }
+      dd=abs(B(i2,i2))-sum;
+      if(dd<0)throw std::domain_error("invertibility not confirmed");
     }
     for(int N=0;N<=M;N++){;
       pro=prod(pro,I-A*pow(q,N));
