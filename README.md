@@ -37,10 +37,6 @@ DISCLAIMER: Extensive tests have been performed to ensure reliability of the alg
 
 (q-special functions in this repository)
 
-elliptic gamma function
-
-little a-Jacobi function 
-
 Heine hypergeometric function
 
 q-Airy functions (HKW, KMNOY, IKMMS, Ramanujan)
@@ -77,11 +73,25 @@ symmetric q-gamma, symmetric q-beta
 (q-series in this repository)
 Bailey Mod9, Dyson Mod27, Gessel-Stanton, Gollnitz-Gordon, Jackson-Slater ,Lebesgue, Rogers Mod14, Rogers-Ramanujan, Rogers-Selberg
 
-(References)
+(References for Validated Numerics)
 
 S.M. Rump: INTLAB - INTerval LABoratory. 
 In Tibor Csendes, editor, Developments in Reliable Computing, pages 77-104. 
 Kluwer Academic Publishers, Dordrecht, 1999.
+
+Tucker, W. (2011). Validated numerics: a short introduction to rigorous
+computations. Princeton University Press.
+
+Mayer, G. (2017). Interval analysis: and automatic result verification (Vol. 65).
+Walter de Gruyter GmbH & Co KG.
+
+Alefeld, G., & Herzberger, J. (2012). Introduction to interval computation.
+Academic press.
+
+Moore, R. E., Kearfott, R. B., & Cloud, M. J. (2009). Introduction to interval
+analysis (Vol. 110). SIAM.
+
+(References for q-Special Functions)
 
 Mourad E. H. Ismail,
 CLASSICAL AND QUANTUM ORTHOGONAL POLYNOMIALS IN ONE VARIABLE,
@@ -95,6 +105,8 @@ CAMBRIDGE UNIVERSITY PRESS, 1999.
 
 Wolfram Mathworld http://mathworld.wolfram.com/
 
+DLMF: Digital Library of Mathematical Functions https://dlmf.nist.gov/
+
 George Gasper, Mizan Rahman,
 Basic hypergeometric series,
 Encyclopedia of Mathematics and its Applications 96,
@@ -103,3 +115,26 @@ CAMBRIDGE UNIVERSITY PRESS, 2004.
 Victor Kac, Pokman Cheung,
 Quantum calculus,
 Springer Science & Business Media, 2001.
+
+Ernst, T. (2012). A Comprehensive Treatment of q-calculus. Springer
+Science & Business Media.
+Ernst, T. (2000). The History of q-Calculus and a New Method. Department
+of Mathematics, Uppsala University.
+
+Koekoek, R., Lesky, P. A., & Swarttouw, R. F. (2010). Hypergeometric
+Orthogonal Polynomials and their q-Analogues. Springer Science & Business
+Media.
+
+Andrews, G. E. (1986). q-Series: Their Development and Application in
+Analysis, Number Theory, Combinatorics, Physics, and Computer Algebra
+(No. 66). American Mathematical Society.
+
+Exton, H. (1983). q-Hypergeometric Functions and Applications. Horwood.
+
+Swarttouw, R. F. (1992), The Hahn-Exton q-Bessel Function, PhD Thesis,
+Delft Technical University.
+
+Koelink, E. (2018). q-Special Functions, Basic Hypergeometric Series and
+Operators. arXiv preprint arXiv:1808.03441.
+Koornwinder, T. H. (2005). q-Special Functions, an Overview. arXiv preprint
+math/0511148.
