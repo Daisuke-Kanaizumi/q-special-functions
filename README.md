@@ -131,10 +131,13 @@ Analysis, Number Theory, Combinatorics, Physics, and Computer Algebra
 
 Exton, H. (1983). q-Hypergeometric Functions and Applications. Horwood.
 
+Slater, L. J. (1966). Generalized Hypergeometric Functions, CAMBRIDGE UNIVERSITY PRESS.
+
 Swarttouw, R. F. (1992), The Hahn-Exton q-Bessel Function, PhD Thesis,
 Delft Technical University.
 
 Koelink, E. (2018). q-Special Functions, Basic Hypergeometric Series and
 Operators. arXiv preprint arXiv:1808.03441.
+
 Koornwinder, T. H. (2005). q-Special Functions, an Overview. arXiv preprint
 math/0511148.
