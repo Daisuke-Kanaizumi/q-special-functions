@@ -73,7 +73,7 @@ symmetric q-gamma, symmetric q-beta
 (q-series in this repository)
 Bailey Mod9, Dyson Mod27, Gessel-Stanton, Gollnitz-Gordon, Jackson-Slater ,Lebesgue, Rogers Mod14, Rogers-Ramanujan, Rogers-Selberg
 
-(References for Validated Numerics)
+(References for Validated Numerics and Interval Arithmetic)
 
 S.M. Rump: INTLAB - INTerval LABoratory. 
 In Tibor Csendes, editor, Developments in Reliable Computing, pages 77-104. 
@@ -85,13 +85,20 @@ computations. Princeton University Press.
 Mayer, G. (2017). Interval analysis: and automatic result verification (Vol. 65).
 Walter de Gruyter GmbH & Co KG.
 
-Alefeld, G., & Herzberger, J. (2012). Introduction to interval computation.
-Academic press.
+Alefeld, G., & Herzberger, J. (2012). Introduction to Interval Computation.
+Academic Press.
 
-Moore, R. E., Kearfott, R. B., & Cloud, M. J. (2009). Introduction to interval
-analysis (Vol. 110). SIAM.
+Moore, R. E., Kearfott, R. B., & Cloud, M. J. (2009). Introduction to Interval
+Analysis (Vol. 110). SIAM.
+
+Jaulin, L., Kieffer, M., Didrit, O., & Walter, E. (2001). Applied Interval Analysis. Springer, London.
 
 (References for q-Special Functions)
+
+George Gasper, Mizan Rahman,
+Basic hypergeometric series,
+Encyclopedia of Mathematics and its Applications 96,
+CAMBRIDGE UNIVERSITY PRESS, 2004.
 
 Mourad E. H. Ismail,
 CLASSICAL AND QUANTUM ORTHOGONAL POLYNOMIALS IN ONE VARIABLE,
@@ -106,11 +113,6 @@ CAMBRIDGE UNIVERSITY PRESS, 1999.
 Wolfram Mathworld http://mathworld.wolfram.com/
 
 DLMF: Digital Library of Mathematical Functions https://dlmf.nist.gov/
-
-George Gasper, Mizan Rahman,
-Basic hypergeometric series,
-Encyclopedia of Mathematics and its Applications 96,
-CAMBRIDGE UNIVERSITY PRESS, 2004.
 
 Victor Kac, Pokman Cheung,
 Quantum calculus,
@@ -132,6 +134,8 @@ Analysis, Number Theory, Combinatorics, Physics, and Computer Algebra
 Exton, H. (1983). q-Hypergeometric Functions and Applications. Horwood.
 
 Slater, L. J. (1966). Generalized Hypergeometric Functions, CAMBRIDGE UNIVERSITY PRESS.
+
+Bailey, W. N. (1964). Generalized Hypergeometric Series, CAMBRIDGE UNIVERSITY PRESS.
 
 Swarttouw, R. F. (1992), The Hahn-Exton q-Bessel Function, PhD Thesis,
 Delft Technical University.
