@@ -147,6 +147,7 @@ Koornwinder, T. H. (2005). q-Special Functions, an Overview. arXiv preprint
 math/0511148.
 
 (References about numerical methods for mathematical functions)
+
 Muller, (2016). Elementary Functions -Algorithms and Implementation (3rd ed.). Birkhauser.
 
 Gil, A., Segura, J., & Temme, N. M. (2007). Numerical methods for special functions (Vol. 99). SIAM.
