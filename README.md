@@ -141,6 +141,7 @@ Bailey, W. N. (1964). Generalized Hypergeometric Series, CAMBRIDGE UNIVERSITY PR
 
 Swarttouw, R. F. (1992), The Hahn-Exton q-Bessel Function, PhD Thesis,
 Delft Technical University.
+https://repository.tudelft.nl/islandora/object/uuid%3A0bfd7d96-bb29-4846-8023-6242ce15e18f?collection=research
 
 Koelink, E. (2018). q-Special Functions, Basic Hypergeometric Series and
 Operators. arXiv preprint arXiv:1808.03441.
