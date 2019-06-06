@@ -1,0 +1,2 @@
+In this repository, q-Krawzcyk method and interval q-Newton method are applied to the ratio of q-Bessel functions (J_\nu(x;q)/J_{\nu-1}(x;q)).
+The idea came from Numerical Methods for Special Functions (Gil-Segura-Temme, 2007)
