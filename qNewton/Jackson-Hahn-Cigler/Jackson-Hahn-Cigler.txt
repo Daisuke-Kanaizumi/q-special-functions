@@ -1,0 +1,2 @@
+In this repository, zeros of q-Bessel functions are computed by combining Jackson-Hahn-Cigler q-addition and q-Newton methods.
+Reference: Ernst, T. (2012). A comprehensive treatment of q-calculus. Springer Science & Business Media.
