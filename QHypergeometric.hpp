@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
 // verification program for the q-Hypergeometric function
 
@@ -115,7 +114,7 @@ template <class T> interval<T> QHypergeom(const ub::vector<interval<T> >& a,cons
       for(int h=r;h<=s-1;h++){
 	pro2=pro2*pow(q,N*(1+s-r))/abs(1-b(h)*pow(q,N));
       }
-      ratio=abs(z)*pro1*pro2/abs(1-pow(q,N+1));
+      ratio=abs(z)*pro1*pro2/abs(1-pow(q,N));
       if(ratio<1){
 	rad=(first/(1-ratio)).upper();
 	res=mid+rad*interval<T>(-1.,1.);
@@ -204,7 +203,7 @@ return res;
 	for(int h=r;h<=s-1;h++){
 	  pro2=pro2*pow(q,N*(1+s-r))/abs(1-b(h)*pow(q,N));
 	}
-	ratio=abs(z)*pro1*pro2/abs(1-pow(q,N+1));
+	ratio=abs(z)*pro1*pro2/abs(1-pow(q,N));
 	if(ratio<1){
 	  rad=(first/(1-ratio)).upper();
 	  res=complex_nbd(mid,rad);
@@ -329,6 +328,17 @@ return res;
 
     res=QHypergeom(ub::vector<complex<interval<T> > >(v1),ub::vector<complex<interval<T> > >(v2),interval<T>(q),complex<interval<T> >(x));
     return res;
+  }
+  template <class T> interval<T> Euler_qlog(const interval<T>& q,const interval<T> & x){
+    // verification program for Euler's q-logarithm
+    // reference: Koelink-Van Assche
+    interval<T> res;
+    ub::vector<interval<T> >v1(3),v2(2);
+    v1(0)=q;v1(1)=q;v1(2)=q*x;
+    v2(0)=q*q;v2(1)=0;
+    res=QHypergeom(ub::vector<interval<T>  >(v1),ub::vector<interval<T>  >(v2),interval<T>(q),interval<T> (q));
+    return res;
+    
   }
 }
 #endif
