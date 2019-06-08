@@ -1,1 +1,1 @@
-Programs in this repository are computing zeros of q-special functions by using Hahn difference and Newton methods.
+Programs in this repository are computing zeros of q-special functions by using Hahn calculus, Hahn difference and Newton methods.
