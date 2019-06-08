@@ -336,7 +336,7 @@ return res;
     ub::vector<interval<T> >v1(3),v2(2);
     v1(0)=q;v1(1)=q;v1(2)=q*x;
     v2(0)=q*q;v2(1)=0;
-    res=QHypergeom(ub::vector<interval<T>  >(v1),ub::vector<interval<T>  >(v2),interval<T>(q),interval<T> (q));
+    res=-q*(1-x)*QHypergeom(ub::vector<interval<T>  >(v1),ub::vector<interval<T>  >(v2),interval<T>(q),interval<T> (q))/(1-q);
     return res;
     
   }
