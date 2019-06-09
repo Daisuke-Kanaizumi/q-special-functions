@@ -1,6 +1,7 @@
 Programs in this repository are computing zeros of q-special functions by using Hahn calculus, Hahn difference and Newton methods.
 
-Hahn difference is a successful tool for constructing families of orthogonal polynomials and investigating some approximation problems.
+Hahn difference is a generalization of q-derivative and the forward difference operator.
+This is a successful tool for constructing families of orthogonal polynomials and investigating some approximation problems.
 (cf: Kwon-Lee-Park-Yoo(1998), Petronilho(2007))
 
 References
