@@ -1,5 +1,8 @@
 Programs in this repository are computing zeros of q-special functions by using Hahn calculus, Hahn difference and Newton methods.
 
+Hahn difference is a successful tool for constructing families of orthogonal polynomials and investigating some approximation problems.
+(cf: Kwon-Lee-Park-Yoo(1998), Petronilho(2007))
+
 References
 Hahn W: Über orthogonalpolynome, die q -differenzengleichungen genügen. Math. Nachr. 1949, 2: 4-34.
 Hahn W: Ein Beitrag zur Theorie der Orthogonalpolynome. Monatshefte Math. 1983, 95: 19-24.
