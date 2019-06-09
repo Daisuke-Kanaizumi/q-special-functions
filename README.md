@@ -116,6 +116,9 @@ Wolfram Mathworld http://mathworld.wolfram.com/
 
 DLMF: Digital Library of Mathematical Functions https://dlmf.nist.gov/
 
+Ahmad, B., Ntouyas, S., Tariboon, J.
+Quantum Calculus (2016): New Concepts, Impulsive IVPs and BVPs, Inequalities. World Scientific, Singapore. 
+
 Victor Kac, Pokman Cheung,
 Quantum calculus,
 Springer Science & Business Media, 2001.
