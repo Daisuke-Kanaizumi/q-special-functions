@@ -11,6 +11,7 @@ Note: The function "complex_nbd" is defined in Heine.hpp. This works like "cintv
 If you use my programs in publications, please include the following reference.
 
 Daisuke Kanaizumi, Programs for q-special functions and q-series,
+
 https://github.com/Daisuke-Kanaizumi/q-special-functions
 
 You do NOT have to inform your usage to me, but I am very glad to hear how my programs helped you.
@@ -125,6 +126,7 @@ Springer Science & Business Media, 2001.
 
 Ernst, T. (2012). A Comprehensive Treatment of q-calculus. Springer
 Science & Business Media.
+
 Ernst, T. (2000). The History of q-Calculus and a New Method. Department
 of Mathematics, Uppsala University.
 
