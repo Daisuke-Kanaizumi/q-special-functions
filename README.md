@@ -37,7 +37,10 @@ http://www.ti3.tu-harburg.de/rump/intlab/
 
 DISCLAIMER: Extensive tests have been performed to ensure reliability of the algorithms (under Windows 10 with Visual Studio 2015, 2017 and Ubuntu 14.04). However, neither an error-free processor nor an error-free program can be guaranteed.
 
-ACKNOWLEDGEMENTS: The author thanks to Kouta Sekine (https://271.jp/index.php) and Masahide Kashiwagi (http://verifiedby.me/) for their  technical supports and advices. The author also thanks to Kenichi Maruno for giving guidances about basic hypergeometric series and providing related documents.
+ACKNOWLEDGEMENTS: The author thanks to 
+* Masahide Kashiwagi (http://verifiedby.me/) & Kouta Sekine (https://271.jp/index.php) for their  technical supports and advices.
+* Everyone at the Waseda Soliton Lab for their kindness, friendship and advices.
+* Kenichi Maruno for giving guidances about basic hypergeometric series and providing documents/computers.
 
 (q-special functions in this repository)
 
