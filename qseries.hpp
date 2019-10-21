@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
 // verification program for q-series
 // reference: Wolfram Mathworld
