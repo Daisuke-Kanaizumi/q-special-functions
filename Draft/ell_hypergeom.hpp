@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 // Date: May 11th, 2017
 
 #ifndef ELL_HYPERGEOM_HPP
