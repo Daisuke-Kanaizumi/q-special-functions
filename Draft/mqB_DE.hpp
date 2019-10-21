@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
 // Verification program for modified q-Bessel functions 
 // by using double exponential formula with verified error bounds.
