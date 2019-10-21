@@ -1,9 +1,7 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
-
-// verification program for q-Laguerre polynomial
+// verification program for q-Laguerre polynomials
 // References
 
 // Ismail, M. E., & Zhang, R. (2016).
