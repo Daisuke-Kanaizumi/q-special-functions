@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 // Date: March 3rd, 2017
 
 // This program was made in order to calculate the Heine hypergeometric function
