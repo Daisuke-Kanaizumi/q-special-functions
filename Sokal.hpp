@@ -1,8 +1,7 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
-// Verified computation of infinite q-Pochhammer symbol by the Sokal algorithm
+// Verified computation of infinite q-Pochhammer symbol by the Sokal's algorithm
 
 
 // Reference
