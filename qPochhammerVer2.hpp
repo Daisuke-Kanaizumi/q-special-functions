@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
 // Verified computation of infinite q-Pochhammer symbol
 // This implementation is the second version
