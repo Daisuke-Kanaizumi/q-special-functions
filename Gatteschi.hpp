@@ -1,6 +1,5 @@
 // Author: Daisuke Kanaizumi
 // Affiliation: Department of Applied Mathematics, Waseda University
-// Email: daisuke15@asagi.waseda.jp
 
 // Verified computation of infinite q-Pochhammer symbol by the Gatteschi algorithm
 // Reference: Gabutti, B. and Allasia, G., 2008. Evaluation of q-gamma function and q-analogues by iterative algorithms. Numerical Algorithms, 49(1), pp.159-168.
