@@ -39,8 +39,7 @@ DISCLAIMER: Extensive tests have been performed to ensure reliability of the alg
 
 ACKNOWLEDGEMENTS: The author thanks to 
 * Masahide Kashiwagi (http://verifiedby.me/) & Kouta Sekine (https://271.jp/index.php) for their  technical supports and advices.
-* Everyone at the Waseda Soliton Lab for their kindness, friendship and advices.
-* Kenichi Maruno for giving guidances about basic hypergeometric series and providing documents/computers.
+* Everyone at the Waseda Soliton Lab for their comments and advices.
 
 (q-special functions in this repository)
 
